@@ -1,50 +1,44 @@
 "use client";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { MeshTransmissionMaterial, TorusKnot, Float } from "@react-three/drei";
+import { MeshTransmissionMaterial, Float, Stars, Sparkles } from "@react-three/drei";
 import { useRef } from "react";
 import * as THREE from "three";
 
-function KineticKnot() {
+function AnimatedShape() {
   const meshRef = useRef<THREE.Mesh>(null!);
   
   useFrame((state) => {
-    const t = state.clock.getElapsedTime();
-    meshRef.current.rotation.x = t * 0.2;
-    meshRef.current.rotation.y = t * 0.3;
-    meshRef.current.rotation.z = t * 0.1;
+    meshRef.current.rotation.x += 0.01;
+    meshRef.current.rotation.y += 0.01;
   });
 
   return (
-    <Float speed={4} rotationIntensity={1.5} floatIntensity={1.8}>
-      <TorusKnot ref={meshRef} args={[1.5, 0.4, 64, 16]}>
+    <Float speed={5} rotationIntensity={2} floatIntensity={2}>
+      <mesh ref={meshRef}>
+        <torusKnotGeometry args={[1.2, 0.4, 128, 32]} />
         <MeshTransmissionMaterial
-          backside
           samples={16}
-          thickness={1}
-          chromaticAberration={0.1} // Premium color split effect
+          thickness={1.5}
+          chromaticAberration={0.1}
           anisotropy={0.3}
-          distortion={0.5}
-          distortionScale={0.5}
-          temporalDistortion={0.1}
-          color="#FFE0B2" // Very Light Saffron tint
-          attenuationDistance={0.5}
-          attenuationColor="#ff6e00" // Saffron core inside the glass
+          distortion={0.3}
+          color="#ffffff"
+          attenuationColor="#ff4500" // Neon Orange
+          attenuationDistance={0.1}
         />
-      </TorusKnot>
+      </mesh>
     </Float>
   );
 }
 
 export default function Scene() {
   return (
-    <div className="h-full w-full">
-      <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+    <div className="fixed inset-0 z-0 pointer-events-none">
+      <Canvas camera={{ position: [0, 0, 5] }}>
         <ambientLight intensity={0.5} />
-        {/* Cinematic Stage Lights */}
-        <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} intensity={25} color="#ff6e00" />
-        <pointLight position={[-5, -5, 5]} intensity={10} color="#ffaf00" />
-        
-        <KineticKnot />
+        <pointLight position={[10, 10, 10]} intensity={2} color="#ff4500" />
+        <Sparkles count={50} scale={10} size={2} speed={0.5} color="#ff4500" />
+        <AnimatedShape />
       </Canvas>
     </div>
   );
