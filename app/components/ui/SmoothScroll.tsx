@@ -1,12 +1,28 @@
 "use client";
-import { ReactLenis } from '@studio-freight/react-lenis';
 
-// Humein yahan 'any' dena padega kyunki Lenis ka purana version 
-// React 19 ke strict types ko support nahi karta.
-export default function SmoothScroll({ children }: { children: any }) {
-  return (
-    <ReactLenis root options={{ lerp: 0.1, duration: 1.5, smoothWheel: true }}>
-      {children}
-    </ReactLenis>
-  );
-}
+import { useEffect } from "react";
+import Lenis from "lenis";
+
+const SmoothScroll = ({ children }: { children: React.ReactNode }) => {
+  useEffect(() => {
+    const lenis = new Lenis({
+      smoothWheel: true,
+      lerp: 0.08, // smoothness control (0.05 = more smooth)
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
+
+  return <>{children}</>;
+};
+
+export default SmoothScroll;
