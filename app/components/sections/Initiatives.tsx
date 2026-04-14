@@ -27,23 +27,19 @@ export default function Initiatives() {
     if (!containerRef.current) return;
 
     const ctx = gsap.context(() => {
-      const items = gsap.utils.toArray(".init-content");
-      
+      const items = gsap.utils.toArray(".init-card");
+
       items.forEach((item: any) => {
-        gsap.to(item, {
-          scrollTrigger: {
-            trigger: item,
-            start: "top 60%", // Jab center ke thoda upar ho
-            end: "bottom 40%", // Jab center ke thoda niche ho
-            onToggle: (self) => {
-              if (self.isActive) {
-                item.classList.add("is-highlighted");
-              } else {
-                item.classList.remove("is-highlighted");
-              }
-            },
-            // Dynamic scaling and blur reduction on scroll
-            scrub: 1
+        ScrollTrigger.create({
+          trigger: item,
+          start: "top 50%", 
+          end: "bottom 50%",
+          onToggle: (self) => {
+            if (self.isActive) {
+              item.classList.add("is-active-center");
+            } else {
+              item.classList.remove("is-active-center");
+            }
           }
         });
       });
@@ -56,35 +52,37 @@ export default function Initiatives() {
 
   return (
     <section 
+    id="initiatives"
       ref={containerRef} 
-      className="relative bg-black w-full overflow-hidden"
+      className="relative bg-black w-full overflow-visible"
     >
-      <div className="relative z-50 pt-16">
+      <div className="relative z-50 pt-20">
         <SectionHeader title={data.title} subtitle="Community Leadership" />
       </div>
 
-      {/* Grid: 2 columns for Desktop, 1 for Mobile */}
-      <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 relative">
+      {/* Main Flex Wrapper - Explicitly no overflow here */}
+      <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-start relative">
         
-        {/* LEFT: FIXED STICKY IMAGE */}
-        <div className="hidden lg:block relative">
-          <div className="sticky top-0 h-screen w-full flex items-center justify-center">
-            <div className="relative w-full h-[80%] flex items-center justify-center">
-              {/* Glow for PNG depth */}
-              <div className="absolute w-64 h-64 bg-orange-600/20 blur-[120px] rounded-full" />
+        {/* LEFT SIDE: THE FIXED IMAGE BOX */}
+        <div className="hidden lg:block w-1/2 sticky top-0 h-screen overflow-hidden">
+          <div className="relative w-full h-full flex items-center justify-center p-12">
+            {/* Glow effect */}
+            <div className="absolute w-72 h-72 bg-orange-600/10 blur-[140px] rounded-full z-0" />
+            
+            <div className="relative w-full h-[90%] z-10">
               <Image 
                 src={vsImage} 
                 alt="Vikalp Singh" 
                 fill 
-                className="object-contain grayscale hover:grayscale-0 transition-all duration-1000"
+                className="object-contain grayscale contrast-125 brightness-110"
                 priority
               />
             </div>
           </div>
         </div>
 
-        {/* RIGHT: SCROLLING CONTENT */}
-        <div className="w-full flex flex-col space-y-[35vh] py-[40vh] lg:pl-12">
+        {/* RIGHT SIDE: THE SCROLLING LIST */}
+        <div className="w-full lg:w-1/2 flex flex-col py-[35vh]">
           {data.items.map((item, index) => {
             const Icon = icons[index % icons.length];
             const [title, desc] = item.includes(" – ") ? item.split(" – ") : [item, ""];
@@ -92,53 +90,55 @@ export default function Initiatives() {
             return (
               <div 
                 key={index} 
-                className="init-content group flex flex-col items-center lg:items-start opacity-15 blur-[3px] scale-90 transition-all duration-700 ease-out"
+                className="init-card relative mb-[45vh] transition-all duration-700 opacity-15 blur-[4px] scale-90"
               >
-                {/* CSS Magic for Highlighted State */}
                 <style jsx>{`
-                  .init-content.is-highlighted {
+                  .init-card.is-active-center {
                     opacity: 1 !important;
                     filter: blur(0px) !important;
-                    scale: 1.1 !important; /* Bada hokar dikhega */
+                    scale: 1.15 !important; /* Proper Highlight Zoom */
                   }
-                  .init-content.is-highlighted h3 {
-                    color: #EA580C !important; /* Orange Change */
+                  .init-card.is-active-center .text-orange-glow {
+                    color: #EA580C !important;
+                    text-shadow: 0 0 20px rgba(234, 88, 12, 0.2);
                   }
-                  .init-content.is-highlighted .icon-box {
+                  .init-card.is-active-center .icon-box {
                     background: #EA580C;
-                    box-shadow: 0 0 40px rgba(234, 88, 12, 0.5);
+                    box-shadow: 0 0 40px rgba(234, 88, 12, 0.6);
                     border-color: #EA580C;
                   }
-                  .init-content.is-highlighted .icon-box :global(svg) {
+                  .init-card.is-active-center .icon-box :global(svg) {
                     color: white;
                   }
                 `}</style>
 
-                {/* Header: Icon & Index */}
-                <div className="flex items-center gap-5 mb-8">
+                {/* Counter & Icon */}
+                <div className="flex items-center gap-6 mb-8">
                   <div className="icon-box w-14 h-14 rounded-2xl border border-white/10 flex items-center justify-center bg-white/5 transition-all duration-500">
-                    <Icon className="w-6 h-6 text-white/40" />
+                    <Icon className="w-6 h-6 text-white/30" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[10px] font-mono text-orange-600 font-bold tracking-[0.3em]">INITIATIVE</span>
-                    <span className="text-xl font-black text-white/20 italic">0{index + 1}</span>
+                    <span className="text-[10px] font-mono text-orange-600 font-bold tracking-[0.4em]">INITIATIVE</span>
+                    <span className="text-2xl font-black text-white/10 italic leading-none">0{index + 1}</span>
                   </div>
                 </div>
 
-                {/* Content: Title & Desc */}
-                <h3 className="text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase italic tracking-tighter leading-[0.9] transition-all duration-500 text-center lg:text-left">
-                  {title}
-                </h3>
-                
-                {desc && (
-                  <p className="mt-6 max-w-md text-sm md:text-lg text-white/50 font-mono uppercase tracking-widest leading-relaxed text-center lg:text-left border-l-2 border-orange-600/30 pl-6">
-                    {desc}
-                  </p>
-                )}
+                {/* Content Area */}
+                <div className="text-content">
+                  <h3 className="text-orange-glow text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase italic tracking-tighter leading-[0.9] transition-all duration-700">
+                    {title}
+                  </h3>
+                  
+                  {desc && (
+                    <p className="mt-8 max-w-md text-sm md:text-lg text-white/40 font-mono uppercase tracking-widest leading-relaxed border-l-2 border-orange-600/20 pl-6 py-2">
+                      {desc}
+                    </p>
+                  )}
+                </div>
 
-                {/* Responsive Mobile Image (Sirf mobile pe dikhegi inside scroll) */}
-                <div className="lg:hidden mt-10 relative w-full aspect-square opacity-30">
-                   <Image src={vsImage} alt="Vikalp Singh" fill className="object-contain grayscale" />
+                {/* Mobile Fallback Image */}
+                <div className="lg:hidden mt-12 relative w-full aspect-square opacity-20 pointer-events-none">
+                  <Image src={vsImage} alt="Vikalp Singh" fill className="object-contain grayscale" />
                 </div>
               </div>
             );
@@ -146,9 +146,9 @@ export default function Initiatives() {
         </div>
       </div>
 
-      {/* Aesthetic Background Text */}
-      <div className="absolute top-20 left-10 pointer-events-none opacity-[0.03] select-none z-0">
-        <h2 className="text-[25vw] font-black italic uppercase leading-none">ACTION</h2>
+      {/* Decorative Background Branding */}
+      <div className="absolute bottom-20 left-10 pointer-events-none opacity-[0.02] select-none">
+        <h2 className="text-[25vw] font-black italic uppercase leading-none -ml-10">ACTION</h2>
       </div>
     </section>
   );

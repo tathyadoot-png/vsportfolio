@@ -4,6 +4,7 @@ import Education from "../components/sections/Education";
 import Legal from "../components/sections/Legal";
 import Sports from "../components/sections/Sports";
 import Initiatives from "../components/sections/Initiatives";
+import Contact from "../components/sections/Contact";
 
 export default function Home() {
   return (
@@ -14,7 +15,7 @@ export default function Home() {
       <Legal/>
       <Sports/>
       <Initiatives/>
-    
+    <Contact/>
     </main>
   );
 }

@@ -73,7 +73,7 @@ export default function RootLayout({
             <CustomCursor /> 
           <SmoothScroll>
                 <Navbar />   
-            <LanguageToggle />
+            {/* <LanguageToggle /> */}
             <main>{children}</main>
           </SmoothScroll>
         </LanguageProvider>
