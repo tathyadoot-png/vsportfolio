@@ -58,7 +58,7 @@ export default function Navbar() {
               {/* Upper Layer: VIKALP SINGH */}
               <span
                 className={`
-      font-black uppercase italic transition-all duration-700 ease-in-out
+      font-black uppercase italic transition-all duration-700 ease-in-out pr-7
       ${
         isScrolled
           ? "text-lg tracking-[0.3em] text-orange-600"
@@ -93,7 +93,7 @@ export default function Navbar() {
               <Link
                 key={item.id}
                 href={`#${item.id}`}
-                className="relative px-4 py-2 text-[11px] font-bold uppercase tracking-[0.2em] text-white/50 hover:text-orange-500 transition-all group"
+                className="relative px-4 py-2 text-[11px] font-bold uppercase tracking-[0.03em] text-white/50 hover:text-orange-500 transition-all group"
               >
                 <span className="relative z-10">
                   {item.label[lang as "en" | "hi"]}

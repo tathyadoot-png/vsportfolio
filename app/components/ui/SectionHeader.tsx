@@ -13,7 +13,6 @@ export default function SectionHeader({ title, subtitle }: Props) {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Main Title Reveal
       gsap.from(".reveal-text", {
         y: "100%",
         duration: 1.2,
@@ -25,7 +24,6 @@ export default function SectionHeader({ title, subtitle }: Props) {
         }
       });
 
-      // Decorative Line Scale
       gsap.from(lineRef.current, {
         scaleX: 0,
         transformOrigin: "right",
@@ -37,7 +35,6 @@ export default function SectionHeader({ title, subtitle }: Props) {
         }
       });
 
-      // Icon Rotation
       gsap.from(".header-icon", {
         rotate: -180,
         scale: 0,
@@ -54,34 +51,36 @@ export default function SectionHeader({ title, subtitle }: Props) {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-[94%] lg:w-[90%] mx-auto py-12 flex flex-col items-start gap-4 overflow-hidden relative">
+    /* FIX: 'overflow-visible' kiya taaki icon rotate hote waqt na kate.
+       FIX: 'pl-4' add kiya mobile ke liye taaki left se space rahe.
+    */
+    <div ref={containerRef} className="w-full lg:w-[90%] mx-auto py-12 flex flex-col items-start gap-4 overflow-visible relative px-4 md:px-0">
       
-      {/* Background Decorative Text (Unique Layer) */}
-      <div className="absolute -top-4 -left-2 opacity-[0.03] pointer-events-none select-none">
+      {/* Background Decorative Text */}
+      <div className="absolute -top-4 -left-2 opacity-[0.03] pointer-events-none select-none overflow-hidden">
         <h2 className="text-[12vw] font-black uppercase text-white leading-none tracking-tighter">
           {title.split(' ')[0]}
         </h2>
       </div>
 
-      <div className="flex items-center gap-6 z-10">
-        {/* Dynamic Icon Styling */}
-        <div className="header-icon w-16 h-16 relative flex items-center justify-center">
-          <div className="absolute inset-0 border-2 border-orange-600 rotate-45 group-hover:rotate-90 transition-transform duration-700" />
+      <div className="flex items-center gap-4 md:gap-6 z-10">
+        {/* FIX: 'flex-shrink-0' add kiya taaki mobile pe icon chapta na ho */}
+        <div className="header-icon w-14 h-14 md:w-16 md:h-16 relative flex items-center justify-center flex-shrink-0">
+          <div className="absolute inset-0 border-2 border-orange-600 rotate-45" />
           <div className="absolute inset-2 border border-white/20 -rotate-12" />
-          <span className="text-orange-600 font-black text-2xl tracking-tighter italic">V</span>
+          <span className="text-orange-600 font-black text-xl md:text-2xl tracking-tighter italic">V</span>
         </div>
 
         <div className="flex flex-col">
-          {/* Masked Title Reveal */}
           <div className="overflow-hidden">
-            <h2 className="reveal-text text-5xl md:text-8xl font-black text-white uppercase italic leading-[0.9] tracking-tighter">
+            <h2 className="reveal-text text-4xl py-4 pr-5 md:text-8xl font-black text-white uppercase italic leading-[0.9] tracking-tighter">
               {title}
             </h2>
           </div>
           
           {subtitle && (
             <div className="overflow-hidden mt-2">
-              <p className="reveal-text text-xs md:text-sm text-orange-600 font-mono uppercase tracking-[0.5em] font-semibold">
+              <p className="reveal-text text-[10px] md:text-sm text-orange-600 font-mono uppercase tracking-[0.3em] md:tracking-[0.5em] font-semibold">
                 // {subtitle}
               </p>
             </div>
@@ -89,7 +88,6 @@ export default function SectionHeader({ title, subtitle }: Props) {
         </div>
       </div>
 
-      {/* Unique Right-aligned Divider */}
       <div className="w-full flex justify-end items-center gap-4 mt-2">
         <span className="text-[10px] text-white/20 font-mono tracking-widest uppercase hidden md:block">
           Established 2018
