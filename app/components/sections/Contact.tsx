@@ -129,9 +129,7 @@ const Contact = () => {
       </div>
 
       {/* Footer Branding Text */}
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none opacity-[0.02] select-none">
-        <h2 className="text-[11vw] font-black italic uppercase whitespace-nowrap">VIKALP SINGH</h2>
-      </div>
+     
     </section>
   )
 }
