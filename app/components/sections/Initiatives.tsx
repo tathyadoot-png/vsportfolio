@@ -7,6 +7,7 @@ import gsap from "@/app/lib/gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionHeader from "../ui/SectionHeader";
 import vsImage from "@/public/vs1.png";
+import Lenis from "@studio-freight/lenis";
 import { 
   Briefcase, HeartPulse, GraduationCap, Users, 
   Droplets, TreePine, Utensils, Shirt, PartyPopper, Lightbulb 
@@ -21,68 +22,81 @@ const icons = [Briefcase, HeartPulse, Lightbulb, GraduationCap, Users, Droplets,
 export default function Initiatives() {
   const { lang } = useLanguage();
   const data = initiativesData[lang as keyof typeof initiativesData];
-  const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!containerRef.current) return;
+    const lenis = new Lenis({
+      duration: 1.2,
+      smoothWheel: true,
+      wheelMultiplier: 1.5, // Thoda fast scroll feel ke liye
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
 
     const ctx = gsap.context(() => {
-      const items = gsap.utils.toArray(".init-card");
+      if (!sectionRef.current) return;
 
-      items.forEach((item: any) => {
-        ScrollTrigger.create({
-          trigger: item,
-          start: "top 50%", 
-          end: "bottom 50%",
-          onToggle: (self) => {
-            if (self.isActive) {
-              item.classList.add("is-active-center");
-            } else {
-              item.classList.remove("is-active-center");
-            }
-          }
-        });
+      const totalWidth = sectionRef.current.scrollWidth;
+      const viewportWidth = window.innerWidth;
+      // Full distance calculation
+      const scrollDistance = totalWidth - viewportWidth;
+
+      gsap.to(sectionRef.current, {
+        x: -scrollDistance,
+        ease: "none",
+        scrollTrigger: {
+          trigger: triggerRef.current,
+          pin: true,
+          scrub: 0.8, 
+          start: "top top",
+          // Scroll length control: Jitna chota number, utna fast horizontal movement
+          end: () => `+=${totalWidth * 0.6}`, 
+          invalidateOnRefresh: true,
+        },
       });
-    }, containerRef);
+    }, triggerRef);
 
-    return () => ctx.revert();
+    return () => {
+      ctx.revert();
+      lenis.destroy();
+    };
   }, [lang]);
 
   if (!data) return null;
 
   return (
-    <section 
-    id="initiatives"
-      ref={containerRef} 
-      className="relative bg-black w-full overflow-visible"
-    >
-      <div className="relative z-50 pt-20">
-        <SectionHeader title={data.title} subtitle="Community Leadership" />
-      </div>
-
-      {/* Main Flex Wrapper - Explicitly no overflow here */}
-      <div className="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-start relative">
+    <div ref={triggerRef} id='initiatives' className="bg-black w-full overflow-hidden">
+      <section className="relative h-screen w-full flex flex-col justify-center">
         
-        {/* LEFT SIDE: THE FIXED IMAGE BOX */}
-        <div className="hidden lg:block w-1/2 sticky top-0 h-screen overflow-hidden">
-          <div className="relative w-full h-full flex items-center justify-center p-12">
-            {/* Glow effect */}
-            <div className="absolute w-72 h-72 bg-orange-600/10 blur-[140px] rounded-full z-0" />
-            
-            <div className="relative w-full h-[90%] z-10">
-              <Image 
-                src={vsImage} 
-                alt="Vikalp Singh" 
-                fill 
-                className="object-contain grayscale contrast-125 brightness-110"
-                priority
-              />
-            </div>
+        {/* Header - Full Width Padding */}
+        <div className="relative z-30 mb-8 px-6 md:px-12 lg:px-6">
+          <SectionHeader title={data.title} subtitle="Impact & Vision" />
+        </div>
+
+        {/* Fixed Center Background Image */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+          <div className="relative w-[60vh] h-[80vh] opacity-20 md:opacity-40 scale-110 lg:scale-125">
+            <Image 
+              src={vsImage} 
+              alt="Vikalp Singh" 
+              fill 
+              className="object-contain grayscale contrast-125 brightness-95 pt-28"
+              priority
+            />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[140%] bg-orange-600/5 blur-[180px] rounded-full" />
           </div>
         </div>
 
-        {/* RIGHT SIDE: THE SCROLLING LIST */}
-        <div className="w-full lg:w-1/2 flex flex-col py-[35vh]">
+        {/* Horizontal Scrolling Container - No Max Width */}
+        <div 
+          ref={sectionRef} 
+          className="flex gap-16 md:gap-32 lg:gap-48 items-center relative z-20 px-6 md:px-12 lg:px-20 will-change-transform"
+        >
           {data.items.map((item, index) => {
             const Icon = icons[index % icons.length];
             const [title, desc] = item.includes(" – ") ? item.split(" – ") : [item, ""];
@@ -90,66 +104,37 @@ export default function Initiatives() {
             return (
               <div 
                 key={index} 
-                className="init-card relative mb-[45vh] transition-all duration-700 opacity-15 blur-[4px] scale-90"
+                className="min-w-[85vw] md:min-w-[45vw] lg:min-w-[35vw] flex flex-col group"
               >
-                <style jsx>{`
-                  .init-card.is-active-center {
-                    opacity: 1 !important;
-                    filter: blur(0px) !important;
-                    scale: 1.15 !important; /* Proper Highlight Zoom */
-                  }
-                  .init-card.is-active-center .text-orange-glow {
-                    color: #EA580C !important;
-                    text-shadow: 0 0 20px rgba(234, 88, 12, 0.2);
-                  }
-                  .init-card.is-active-center .icon-box {
-                    background: #EA580C;
-                    box-shadow: 0 0 40px rgba(234, 88, 12, 0.6);
-                    border-color: #EA580C;
-                  }
-                  .init-card.is-active-center .icon-box :global(svg) {
-                    color: white;
-                  }
-                `}</style>
-
-                {/* Counter & Icon */}
-                <div className="flex items-center gap-6 mb-8">
-                  <div className="icon-box w-14 h-14 rounded-2xl border border-white/10 flex items-center justify-center bg-white/5 transition-all duration-500">
-                    <Icon className="w-6 h-6 text-white/30" />
+                <div className="flex items-center gap-6 mb-4">
+                  <div className="w-14 h-14 md:w-20 md:h-20 rounded-3xl border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-orange-600 group-hover:border-orange-600 transition-all duration-700">
+                    <Icon className="w-6 h-6 md:w-10 md:h-10 text-white/40 group-hover:text-white transition-colors" />
                   </div>
-                  <div className="flex flex-col">
-                    <span className="text-[10px] font-mono text-orange-600 font-bold tracking-[0.4em]">INITIATIVE</span>
-                    <span className="text-2xl font-black text-white/10 italic leading-none">0{index + 1}</span>
-                  </div>
+                  <span className="text-6xl md:text-8xl font-black text-white/[0.03] italic tracking-tighter">
+                    0{index + 1}
+                  </span>
                 </div>
 
-                {/* Content Area */}
-                <div className="text-content">
-                  <h3 className="text-orange-glow text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase italic tracking-tighter leading-[0.9] transition-all duration-700">
-                    {title}
-                  </h3>
-                  
-                  {desc && (
-                    <p className="mt-8 max-w-md text-sm md:text-lg text-white/40 font-mono uppercase tracking-widest leading-relaxed border-l-2 border-orange-600/20 pl-6 py-2">
-                      {desc}
-                    </p>
-                  )}
-                </div>
+                <h3 className="text-4xl md:text-5xl lg:text-7xl font-black text-white uppercase italic tracking-tighter leading-[0.8] group-hover:text-orange-600 transition-all duration-500">
+                  {title}
+                </h3>
 
-                {/* Mobile Fallback Image */}
-                <div className="lg:hidden mt-12 relative w-full aspect-square opacity-20 pointer-events-none">
-                  <Image src={vsImage} alt="Vikalp Singh" fill className="object-contain grayscale" />
-                </div>
+                {desc && (
+                  <p className="mt-8 max-w-md text-white/30 font-mono text-xs md:text-sm uppercase tracking-[0.25em] leading-relaxed border-l-2 border-orange-600/20 pl-6">
+                    {desc}
+                  </p>
+                )}
               </div>
             );
           })}
+          
+          {/* End Spacer for full exit */}
+          <div className="min-w-[10vw] h-10" />
         </div>
-      </div>
 
-      {/* Decorative Background Branding */}
-      <div className="absolute bottom-20 left-10 pointer-events-none opacity-[0.02] select-none">
-        <h2 className="text-[25vw] font-black italic uppercase leading-none -ml-10">ACTION</h2>
-      </div>
-    </section>
+        {/* Action Label Watermark */}
+        
+      </section>
+    </div>
   );
 }

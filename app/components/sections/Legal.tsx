@@ -1,10 +1,12 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
+import Image from "next/image";
 import { legalData } from "@/app/data/legal";
 import { useLanguage } from "@/app/context/LanguageContext";
 import gsap from "@/app/lib/gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionHeader from "../ui/SectionHeader";
+import withoutbg from "@/public/vs2-removebg-preview.png";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -14,98 +16,123 @@ export default function Legal() {
   const { lang } = useLanguage();
   const data = legalData[lang as keyof typeof legalData];
   const sectionRef = useRef<HTMLElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // 1. Safety Guard
-    if (!sectionRef.current || !scrollRef.current) return;
+    if (!sectionRef.current || !containerRef.current || !data) return;
 
     const ctx = gsap.context(() => {
-      const scrollEl = scrollRef.current;
-      if (!scrollEl) return;
+      const cards = gsap.utils.toArray(".legal-card-stack");
+      const isMobile = window.innerWidth < 768;
 
-      // 2. Horizontal Move Logic
-      // Jitne cards hain uske hisaab se calculate karega
-      const totalWidth = scrollEl.offsetWidth;
-      const amountToMove = totalWidth - window.innerWidth;
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: isMobile ? `+=${cards.length * 80}%` : "+=250%",
+          pin: true,
+          scrub: 1,
+          snap: 1 / (cards.length),
+        }
+      });
 
-      if (amountToMove > 0) {
-        gsap.to(scrollEl, {
-          x: -amountToMove - 200, // Thoda extra space last card ke baad
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: () => `+=${amountToMove}`,
-            pin: true,
-            scrub: 1,
-            invalidateOnRefresh: true,
+ if (isMobile) {
+  tl.to(cards.slice(0, 3), {
+    // -250 ya -300 se start karein taaki blank space khatam ho jaye
+    y: (i) => -280 + (i * 140), 
+    x: 0,
+    opacity: 1,
+    scale: 0.95,
+    stagger: 0.2,
+    duration: 1
+  })
+  .to(cards.slice(0, 3), {
+    opacity: 0,
+    y: -400, // Exit animation upar ki taraf
+    duration: 0.5
+  }, "+=0.5")
+  .to(cards.slice(3, 6), {
+    y: (i) => -280 + (i * 140), // Same starting point for second batch
+    x: 0,
+    opacity: 1,
+    scale: 0.95,
+    stagger: 0.2,
+    duration: 1
+  })
+  // ... rest of the code
+}else {
+        
+
+        
+        tl.to(cards, {
+          x: (i) => {
+            const positions = [-380, 380, -420, 420, -380, 380];
+            return positions[i % positions.length];
           },
-        });
+          y: (i) => {
+            const offsets = [-180, -180, 0, 0, 180, 180];
+            return offsets[i % offsets.length];
+          },
+          rotation: 0,
+          opacity: 1,
+          scale: 1,
+          stagger: 0.1,
+          ease: "power2.out"
+        })
+        .to(".hero-legal-img", {
+          scale: 1.05,
+          duration: 1
+        }, 0);
       }
+
     }, sectionRef);
 
     return () => ctx.revert();
-  }, [lang]); // Sirf lang par dependency rakho
+  }, [data]);
 
-  // Agar data load nahi hua toh fallback dikhao (Black screen se bachne ke liye)
-  if (!data)
-    return <div className="h-screen bg-black text-white p-20">Loading...</div>;
+  if (!data) return null;
 
   return (
-    <section
-    id="legal"
-      ref={sectionRef}
-      className="relative h-screen bg-black overflow-hidden flex flex-col"
-    >
-      {/* 1. Heading (Fixed Height) */}
-      <div className="pt-10">
-        <SectionHeader
-          title={data.title}
-          subtitle="Professional Jurisprudence"
-        />
+    <section ref={sectionRef} className="relative min-h-screen bg-[#050505] overflow-hidden">
+      <div className="w-full pt-10 md:pt-16 px-6 md:px-20 z-50 relative">
+        <SectionHeader title={data.title} subtitle="Strategic Advocacy" />
       </div>
 
-      {/* 2. Horizontal Container */}
-      <div className="flex-1 relative z-10 flex items-center overflow-visible">
-        <div
-          ref={scrollRef}
-          className="flex flex-nowrap gap-10 px-10 md:px-24 w-fit"
-        >
-          {data.items.map((item, index) => (
-            <div
-              key={index}
-              className="legal-card group relative w-[300px] md:w-[450px] h-[350px] p-10 rounded-[3rem] bg-white/[0.03] border border-white/10 backdrop-blur-xl flex flex-col justify-between transition-all duration-500 hover:border-orange-600/50 flex-shrink-0"
-            >
-              <div className="flex justify-between items-start">
-                <div className="w-12 h-12 rounded-xl border border-orange-600/30 flex items-center justify-center group-hover:bg-orange-600 transition-all duration-500">
-                  <span className="text-orange-500 group-hover:text-white text-xs font-bold italic">
-                    L
-                  </span>
-                </div>
-                <span className="text-white/5 text-6xl font-black italic">
-                  0{index + 1}
-                </span>
-              </div>
+      <div ref={containerRef} className="relative w-full h-[85vh] flex flex-col items-center justify-center">
+        
+        {/* Background Text - Responsive size */}
+        <h2 className="absolute text-[25vw] md:text-[18vw] font-black text-white/[0.01] uppercase italic select-none pointer-events-none tracking-tighter">
+          JUSTICE
+        </h2>
 
-              <div className="space-y-4">
-                <div className="h-[2px] w-8 bg-orange-600 group-hover:w-full transition-all duration-700" />
-                <h3 className="text-xl md:text-3xl font-bold text-white leading-tight">
-                  {item}
-                </h3>
+        {/* THE CARDS */}
+        {data.items.map((item, index) => (
+          <div
+            key={index}
+            className="legal-card-stack absolute w-[90%] max-w-[340px] md:max-w-[380px] p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] bg-[#0a0a0a]/95 border border-white/10 backdrop-blur-xl opacity-0 scale-50 shadow-2xl z-20 group"
+          >
+            <div className="flex items-center gap-4 mb-3 md:mb-4">
+              <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg bg-orange-600/20 flex items-center justify-center border border-orange-600/30">
+                <span className="text-orange-500 font-bold italic">§</span>
               </div>
+              <span className="text-white/10 text-3xl md:text-4xl font-black">0{index + 1}</span>
             </div>
-          ))}
-          {/* Last Spacer */}
-          <div className="w-[30vw] flex-shrink-0" />
-        </div>
-      </div>
+            <h3 className="text-base md:text-xl font-bold text-white leading-tight group-hover:text-orange-500 transition-colors">
+              {item}
+            </h3>
+            <div className="mt-3 md:mt-4 h-[2px] w-0 bg-orange-600 group-hover:w-full transition-all duration-700" />
+          </div>
+        ))}
 
-      {/* 3. Global Decorative Elements */}
-      <div className="absolute top-0 right-0 opacity-[0.02] pointer-events-none p-10 z-0">
-        <span className="text-[30vh] font-black italic uppercase leading-none">
-          LAW
-        </span>
+        {/* THE HERO IMAGE */}
+        <div className="hero-legal-img absolute md:relative z-10 md:z-30 pointer-events-none w-[240px] md:w-[420px] bottom-0 md:bottom-auto">
+          <Image 
+            src={withoutbg} 
+            alt="Advocate" 
+            className="w-full h-auto object-contain drop-shadow-[0_0_80px_rgba(234,88,12,0.15)]"
+            priority
+          />
+        </div>
       </div>
     </section>
   );

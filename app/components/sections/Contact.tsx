@@ -44,7 +44,7 @@ const Contact = () => {
   ];
 
   return (
-    <section className="relative bg-black py-24 overflow-hidden min-h-screen flex flex-col justify-center">
+    <section id='contact'  className="relative bg-black py-24 overflow-hidden min-h-screen flex flex-col justify-center">
       
       {/* Background Decorative Elements */}
       <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20">
@@ -129,8 +129,8 @@ const Contact = () => {
       </div>
 
       {/* Footer Branding Text */}
-      <div className="absolute bottom-5 left-0 w-full overflow-hidden pointer-events-none opacity-[0.02] select-none">
-        <h2 className="text-[15vw] font-black italic uppercase whitespace-nowrap">VIKALP SINGH</h2>
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none opacity-[0.02] select-none">
+        <h2 className="text-[11vw] font-black italic uppercase whitespace-nowrap">VIKALP SINGH</h2>
       </div>
     </section>
   )

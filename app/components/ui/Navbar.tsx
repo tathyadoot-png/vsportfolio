@@ -30,7 +30,7 @@ export default function Navbar() {
     { id: "sports", label: { en: "Sports", hi: "खेल" } },
     { id: "initiatives", label: { en: "Initiatives", hi: "पहल" } },
     // { id: "speaking", label: { en: "Speaking", hi: "वक्तव्य" } },
-    // { id: "media", label: { en: "Media", hi: "मीडिया" } },
+    { id: "media", label: { en: "Media", hi: "मीडिया" } },
     { id: "contact", label: { en: "Contact", hi: "संपर्क" } },
   ];
 

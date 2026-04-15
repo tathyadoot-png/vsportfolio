@@ -83,7 +83,7 @@ export default function Education() {
       
       {/* Background Decorative Text */}
       <div className="absolute top-1/2 left-0 -translate-y-1/2 w-full opacity-[0.02] select-none pointer-events-none">
-        <h2 className="text-[22vw] font-black text-white uppercase italic leading-none">
+        <h2 className="text-[18vw] font-black text-white uppercase italic leading-none">
           {lang === "en" ? "Academy" : "अकादमी"}
         </h2>
       </div>
