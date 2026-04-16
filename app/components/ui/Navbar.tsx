@@ -52,7 +52,7 @@ export default function Navbar() {
             href="#hero"
             className="group relative flex items-center"
           >
-            <div className={`relative transition-all duration-500 ease-in-out ${isScrolled ? "w-14 md:-24" : "w-16 md:w-35"}`}>
+            <div className={`relative transition-all duration-500 ease-in-out ${isScrolled ? "w-16 md:-24" : "w-16 md:w-35"}`}>
               <Image 
                 src={logo} 
                 alt="Vikalp Singh" 
