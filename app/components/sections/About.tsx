@@ -65,8 +65,9 @@ export default function About() {
 
       <div className="container mx-auto px-6 md:px-24 grid md:grid-cols-2 gap-20 items-center relative z-10">
         
+
         {/* 📸 Elite Image Area (Black & White to Color) */}
-        <div className="relative flex justify-center order-2 md:order-1">
+        <div className="relative flex justify-center order-1 md:order-1">
            <div ref={portraitRef} className="relative group aspect-[3/4] w-full max-w-md mx-auto rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl">
               
               {/* Profile PNG */}
@@ -83,8 +84,9 @@ export default function About() {
            </div>
         </div>
 
+
         {/* ✍️ Clean & Impactful Typography */}
-        <div className="space-y-12 order-1 md:order-2">
+        <div className="space-y-12 order-2 md:order-2">
           <div className="about-reveal">
             <p className="text-orange-500 font-mono  text-xs uppercase block mb-3">// {data.title}</p>
             <h2 className="text-6xl md:text-8xl font-black text-white uppercase leading-none italic ">
@@ -104,6 +106,12 @@ export default function About() {
             </button>
           </div>
         </div>
+
+
+
+
+
+        
 
       </div>
     </section>
