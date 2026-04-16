@@ -94,7 +94,7 @@ export default function About() {
 
           <div className="about-reveal space-y-6 text-gray-400 text-sm md:text-lg font-light leading-relaxed max-w-xl border-l-2 border-orange-600 pl-6">
              {data.description.split("\n").map((para, i) => (
-                para.trim() && <p key={i} className="hover:text-white transition-colors duration-500">{para}</p>
+                para.trim() && <p key={i} className="hover:text-white transition-colors duration-500 text-justify">{para}</p>
               ))}
           </div>
 

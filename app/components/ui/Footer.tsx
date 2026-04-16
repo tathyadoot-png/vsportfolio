@@ -80,7 +80,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-[10px] text-white/30 uppercase tracking-widest">Email</p>
-                  <p className="text-sm text-white/80 font-medium">contact@vikalpsingh.com</p>
+                  <p className="text-sm text-white/80 font-medium">office@vikalpsingh.com</p>
                 </div>
               </div>
               
@@ -90,7 +90,8 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-[10px] text-white/30 uppercase tracking-widest">Location</p>
-                  <p className="text-sm text-white/80 font-medium">Bhopal, India</p>
+                  <p className="text-sm text-white/80 font-medium">Satna, Madhya Pradesh</p>
+                  <p className="text-sm text-white/80 font-medium">New Delhi</p>
                 </div>
               </div>
             </div>
