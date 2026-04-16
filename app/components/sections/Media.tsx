@@ -10,14 +10,14 @@ import { useLanguage } from "@/app/context/LanguageContext";
 const Media = () => {
   const { lang } = useLanguage();
   const [selectedImg, setSelectedImg] = useState<null | any>(null);
-  const [visibleCount, setVisibleCount] = useState(6); // Initial images to show
+  const [visibleCount, setVisibleCount] = useState(8); // Initial images to show
 
   const loadMore = () => {
     setVisibleCount((prev) => prev + 3); // Har click par 3 aur images load hongi
   };
 
   return (
-    <section className="relative w-full bg-[#050505] py-20 overflow-hidden">
+    <section id='media' className="relative w-full  bg-[#050505] py-20 overflow-hidden">
       {/* Full Width Heading Section */}
       <div className="w-full px-6 md:px-12 lg:px-5 mb-16">
         <SectionHeader 

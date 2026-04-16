@@ -22,7 +22,7 @@ const Footer = () => {
     <footer className="relative bg-[#050505] border-t border-white/5 pt-20 pb-10 overflow-hidden">
       {/* Background Subtle Text */}
       <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-[0.02] select-none pointer-events-none whitespace-nowrap">
-        <span className="text-[15vw] font-black uppercase italic ">
+        <span className="text-[12vw] font-black uppercase italic ">
           Vikalp Singh
         </span>
       </div>

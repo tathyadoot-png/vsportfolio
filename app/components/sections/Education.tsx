@@ -84,15 +84,13 @@ export default function Education() {
       className="relative min-h-screen bg-black py-20 px-4 md:px-0 overflow-hidden"
       style={{ perspective: "1200px" }}
     >
-      <div className="w-full max-w-6xl mx-auto relative z-10">
-        
-        <div className="mb-16">
-          <SectionHeader 
+       <SectionHeader 
             title={data.title} 
             subtitle={lang === "en" ? "My Academic Roadmap" : "मेरा शैक्षणिक सफर"} 
           />
-        </div>
-
+      <div className="w-full max-w-6xl mx-auto relative z-10">
+        
+        
         <div ref={triggerRef} className="relative">
           
           {/* Responsive Line: Mobile par left mein, Desktop par center mein */}

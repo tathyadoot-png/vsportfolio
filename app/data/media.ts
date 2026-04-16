@@ -18,8 +18,8 @@ export const mediaData = [
   { id: 5, src: vs6, title: "Community Event" },
   { id: 6, src: vs7, title: "Strategic Planning" },
   { id: 7, src: vs8, title: "Media Briefing" },
-  { id: 8, src: vs9, title: "Youth Engagement" },
+  { id: 8, src: vs12, title: "Youth Engagement" },
   { id: 9, src: vs10, title: "Development Review" },
   { id: 10, src: vs11, title: "Public Address" },
-  { id: 11, src: vs12, title: "Cultural Event" },
+  { id: 11, src: vs9, title: "Cultural Event" },
 ];
