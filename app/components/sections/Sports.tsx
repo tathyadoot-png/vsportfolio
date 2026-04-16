@@ -126,7 +126,7 @@ export default function Sports() {
                     </div>
                     
                     <h3 
-                      className="text-2xl md:text-4xl font-black text-white uppercase italic tracking-tighter leading-tight"
+                      className="text-2xl md:text-4xl font-black text-white uppercase italic leading-tight"
                       style={{ transform: "skewX(8deg)" }}
                     >
                       {item}
@@ -149,7 +149,7 @@ export default function Sports() {
 
       {/* Background Performance Text - Adjusted Opacity and Position */}
       <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.02] pointer-events-none select-none z-0">
-        <span className="text-[25vw] font-black text-white uppercase tracking-tighter italic">
+        <span className="text-[25vw] font-black text-white uppercase italic">
           SPEED
         </span>
       </div>

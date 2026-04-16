@@ -110,17 +110,17 @@ export default function Initiatives() {
                   <div className="w-14 h-14 md:w-20 md:h-20 rounded-3xl border border-white/10 bg-white/5 flex items-center justify-center group-hover:bg-orange-600 group-hover:border-orange-600 transition-all duration-700">
                     <Icon className="w-6 h-6 md:w-10 md:h-10 text-white/40 group-hover:text-white transition-colors" />
                   </div>
-                  <span className="text-6xl md:text-8xl font-black text-white/[0.03] italic tracking-tighter">
+                  <span className="text-6xl md:text-8xl font-black text-white/[0.03] italic ">
                     0{index + 1}
                   </span>
                 </div>
 
-                <h3 className="text-4xl md:text-5xl lg:text-7xl font-black text-white uppercase italic tracking-tighter leading-[0.8] group-hover:text-orange-600 transition-all duration-500">
+                <h3 className="text-4xl md:text-5xl lg:text-7xl font-black text-white uppercase italic  leading-[0.8] group-hover:text-orange-600 transition-all duration-500">
                   {title}
                 </h3>
 
                 {desc && (
-                  <p className="mt-8 max-w-md text-white/30 font-mono text-xs md:text-sm uppercase tracking-[0.25em] leading-relaxed border-l-2 border-orange-600/20 pl-6">
+                  <p className="mt-8 max-w-md text-white/30 font-mono text-xs md:text-sm uppercase  leading-relaxed border-l-2 border-orange-600/20 pl-6">
                     {desc}
                   </p>
                 )}

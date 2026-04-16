@@ -86,8 +86,8 @@ export default function About() {
         {/* ✍️ Clean & Impactful Typography */}
         <div className="space-y-12 order-1 md:order-2">
           <div className="about-reveal">
-            <p className="text-orange-500 font-mono tracking-[0.5em] text-xs uppercase block mb-3">// {data.title}</p>
-            <h2 className="text-6xl md:text-8xl font-black text-white uppercase leading-none italic tracking-tight">
+            <p className="text-orange-500 font-mono  text-xs uppercase block mb-3">// {data.title}</p>
+            <h2 className="text-6xl md:text-8xl font-black text-white uppercase leading-none italic ">
               Legacy in <br/> <span className="text-orange-600">Motion.</span>
             </h2>
           </div>
@@ -99,7 +99,7 @@ export default function About() {
           </div>
 
           <div className="about-reveal pt-4 flex gap-6">
-            <button className="px-10 py-4 bg-orange-600 text-white font-bold text-xs uppercase tracking-widest rounded-full hover:bg-white hover:text-black transition-all duration-500 shadow-lg hover:shadow-orange-500/30">
+            <button className="px-10 py-4 bg-orange-600 text-white font-bold text-xs uppercase  rounded-full hover:bg-white hover:text-black transition-all duration-500 shadow-lg hover:shadow-orange-500/30">
               {lang === 'en' ? 'Learn More' : 'और जानें'}
             </button>
           </div>

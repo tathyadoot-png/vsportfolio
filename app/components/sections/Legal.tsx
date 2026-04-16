@@ -101,7 +101,7 @@ export default function Legal() {
       <div ref={containerRef} className="relative w-full h-[85vh] flex flex-col items-center justify-center">
         
         {/* Background Text - Responsive size */}
-        <h2 className="absolute text-[25vw] md:text-[18vw] font-black text-white/[0.01] uppercase italic select-none pointer-events-none tracking-tighter">
+        <h2 className="absolute text-[25vw] md:text-[18vw] font-black text-white/[0.01] uppercase italic select-none pointer-events-none ">
           JUSTICE
         </h2>
 

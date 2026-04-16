@@ -5,6 +5,7 @@ import SmoothScroll from "./components/ui/SmoothScroll";
 import Navbar from "./components/ui/Navbar";
 import CustomCursor from "./components/ui/CustomCursor";
 import Footer from "./components/ui/Footer";
+import ScrollToTop from "./components/ui/ScrollToTop";
 
 export const metadata = {
   title: "Vikalp Singh | Advocate, Public Leader & Policy Thinker",
@@ -76,6 +77,7 @@ export default function RootLayout({
                 <Navbar />   
             {/* <LanguageToggle /> */}
             <main>{children}</main>
+             <ScrollToTop /> 
             <Footer/>
           </SmoothScroll>
         </LanguageProvider>

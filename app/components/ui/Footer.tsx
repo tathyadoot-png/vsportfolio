@@ -22,7 +22,7 @@ const Footer = () => {
     <footer className="relative bg-[#050505] border-t border-white/5 pt-20 pb-10 overflow-hidden">
       {/* Background Subtle Text */}
       <div className="absolute -bottom-10 left-1/2 -translate-x-1/2 opacity-[0.02] select-none pointer-events-none whitespace-nowrap">
-        <span className="text-[15vw] font-black uppercase italic tracking-tighter">
+        <span className="text-[15vw] font-black uppercase italic ">
           Vikalp Singh
         </span>
       </div>
@@ -32,7 +32,7 @@ const Footer = () => {
           
           {/* 1. Brand Section */}
           <div className="md:col-span-5 space-y-6">
-            <h2 className="text-3xl font-black tracking-tighter text-white italic uppercase">
+            <h2 className="text-3xl font-black  text-white italic uppercase">
               Vikalp <span className="text-orange-600 underline decoration-1 underline-offset-8">Singh</span>
             </h2>
             <p className="text-white/50 text-sm max-w-sm leading-relaxed">
@@ -44,7 +44,7 @@ const Footer = () => {
                 <Link 
                   key={social} 
                   href="#" 
-                  className="text-xs uppercase tracking-widest text-white/40 hover:text-orange-500 transition-colors"
+                  className="text-xs uppercase  text-white/40 hover:text-orange-500 transition-colors"
                 >
                   {social}
                 </Link>
@@ -54,7 +54,7 @@ const Footer = () => {
 
           {/* 2. Navigation Section */}
           <div className="md:col-span-3 space-y-6">
-            <h3 className="text-white font-bold text-sm uppercase tracking-widest">Navigation</h3>
+            <h3 className="text-white font-bold text-sm uppercase ">Navigation</h3>
             <ul className="space-y-3">
               {navLinks.map((link) => (
                 <li key={link.name}>
@@ -72,14 +72,14 @@ const Footer = () => {
 
           {/* 3. Contact Section */}
           <div className="md:col-span-4 space-y-6">
-            <h3 className="text-white font-bold text-sm uppercase tracking-widest">Get In Touch</h3>
+            <h3 className="text-white font-bold text-sm uppercase ">Get In Touch</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-4 group">
                 <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 group-hover:border-orange-600/30 transition-colors">
                   <Mail className="w-4 h-4 text-orange-500" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-white/30 uppercase tracking-widest">Email</p>
+                  <p className="text-[10px] text-white/30 uppercase ">Email</p>
                   <p className="text-sm text-white/80 font-medium">office@vikalpsingh.com</p>
                 </div>
               </div>
@@ -89,7 +89,7 @@ const Footer = () => {
                   <MapPin className="w-4 h-4 text-orange-500" />
                 </div>
                 <div>
-                  <p className="text-[10px] text-white/30 uppercase tracking-widest">Location</p>
+                  <p className="text-[10px] text-white/30 uppercase ">Location</p>
                   <p className="text-sm text-white/80 font-medium">Satna, Madhya Pradesh</p>
                   <p className="text-sm text-white/80 font-medium">New Delhi</p>
                 </div>
@@ -101,7 +101,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-3">
-            <p className="text-white/30 text-[10px] uppercase tracking-[0.2em]">
+            <p className="text-white/30 text-[10px] uppercase">
               © {currentYear} ALL RIGHTS RESERVED |
             </p>
             {/* SOCIYO LOGO & LINK HERE */}
@@ -121,10 +121,10 @@ const Footer = () => {
           </div>
           
           <div className="flex items-center gap-8">
-            <Link href="#" className="text-white/30 hover:text-white text-[10px] uppercase tracking-widest transition-colors">
+            <Link href="#" className="text-white/30 hover:text-white text-[10px] uppercase  transition-colors">
               Privacy Policy
             </Link>
-            <Link href="#" className="text-white/30 hover:text-white text-[10px] uppercase tracking-widest transition-colors">
+            <Link href="#" className="text-white/30 hover:text-white text-[10px] uppercase  transition-colors">
               Terms of Service
             </Link>
           </div>

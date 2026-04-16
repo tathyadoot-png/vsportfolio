@@ -72,8 +72,8 @@ const Contact = () => {
                     <item.icon className="w-6 h-6 text-orange-600" />
                   </div>
                   <div>
-                    <p className="text-xs font-mono uppercase tracking-[0.3em] text-white/40 mb-1">{item.label}</p>
-                    <h4 className="text-xl md:text-2xl font-bold text-white tracking-tight">{item.value}</h4>
+                    <p className="text-xs font-mono uppercase  text-white/40 mb-1">{item.label}</p>
+                    <h4 className="text-xl md:text-2xl font-bold text-white ">{item.value}</h4>
                   </div>
                 </div>
               </a>
@@ -95,28 +95,28 @@ const Contact = () => {
                 <Send className="w-32 h-32 -rotate-12" />
             </div>
 
-            <h3 className="text-3xl font-black text-white uppercase italic mb-8 tracking-tighter">
+            <h3 className="text-3xl font-black text-white uppercase italic mb-8 ">
               {lang === 'hi' ? "संदेश भेजें" : "Send a Message"}
             </h3>
 
             <form className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <label className="text-[10px] font-mono uppercase tracking-widest text-white/40 ml-2">Name</label>
+                  <label className="text-[10px] font-mono uppercase  text-white/40 ml-2">Name</label>
                   <input type="text" className="w-full bg-black/50 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-orange-600 transition-colors" placeholder="John Doe" />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-[10px] font-mono uppercase tracking-widest text-white/40 ml-2">Email</label>
+                  <label className="text-[10px] font-mono uppercase  text-white/40 ml-2">Email</label>
                   <input type="email" className="w-full bg-black/50 border border-white/10 rounded-2xl px-6 py-4 text-white focus:outline-none focus:border-orange-600 transition-colors" placeholder="john@example.com" />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <label className="text-[10px] font-mono uppercase tracking-widest text-white/40 ml-2">Message</label>
+                <label className="text-[10px] font-mono uppercase  text-white/40 ml-2">Message</label>
                 <textarea rows={4} className="w-full bg-black/50 border border-white/10 rounded-3xl px-6 py-4 text-white focus:outline-none focus:border-orange-600 transition-colors resize-none" placeholder="Your message here..."></textarea>
               </div>
 
-              <button className="w-full group relative overflow-hidden bg-orange-600 py-6 rounded-2xl font-black text-white uppercase tracking-[0.2em] italic transition-all hover:bg-orange-700 active:scale-[0.98]">
+              <button className="w-full group relative overflow-hidden bg-orange-600 py-6 rounded-2xl font-black text-white uppercase  italic transition-all hover:bg-orange-700 active:scale-[0.98]">
                 <span className="relative z-10 flex items-center justify-center gap-3">
                   {lang === 'hi' ? "अभी भेजें" : "Transmit Now"}
                   <Send className="w-5 h-5 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform" />

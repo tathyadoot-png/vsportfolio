@@ -2,7 +2,9 @@
 import { useState, useEffect } from "react";
 import { useLanguage } from "@/app/context/LanguageContext";
 import Link from "next/link";
+import Image from "next/image"; // ✅ Import Image
 import { Menu, X, Globe } from "lucide-react";
+import logo from "@/public/VS_Logo_orange.png"; // ✅ Aapka import
 
 export default function Navbar() {
   const { lang, setLang } = useLanguage();
@@ -25,11 +27,8 @@ export default function Navbar() {
     { id: "about", label: { en: "About", hi: "परिचय" } },
     { id: "education", label: { en: "Education", hi: "शिक्षा" } },
     { id: "legal", label: { en: "Legal", hi: "कानूनी" } },
-    // { id: "social", label: { en: "Social Work", hi: "सामाजिक कार्य" } },
-    // { id: "ideology", label: { en: "Journey", hi: "यात्रा" } },
     { id: "sports", label: { en: "Sports", hi: "खेल" } },
     { id: "initiatives", label: { en: "Initiatives", hi: "पहल" } },
-    // { id: "speaking", label: { en: "Speaking", hi: "वक्तव्य" } },
     { id: "media", label: { en: "Media", hi: "मीडिया" } },
     { id: "contact", label: { en: "Contact", hi: "संपर्क" } },
   ];
@@ -42,58 +41,38 @@ export default function Navbar() {
     >
       <div className={`max-w-7xl mx-auto px-6`}>
         <div
-          className={`relative flex items-center justify-between px-6 py-3 transition-all duration-500 rounded-full border ${
+          className={`relative flex items-center justify-between px-6 py-2 transition-all duration-500 rounded-full border ${
             isScrolled
               ? "bg-black/70 backdrop-blur-xl border-white/10 shadow-2xl"
               : "bg-transparent border-transparent"
           }`}
         >
-          {/* LOGO - Branded Typography */}
+          {/* LOGO - Replaced Text with Image */}
           <Link
             href="#hero"
-            className="group relative flex flex-col items-start overflow-hidden"
+            className="group relative flex items-center"
           >
-            {/* The Main Name Container */}
-            <div className="relative flex flex-col leading-none">
-              {/* Upper Layer: VIKALP SINGH */}
-              <span
-                className={`
-      font-black uppercase italic transition-all duration-700 ease-in-out pr-7
-      ${
-        isScrolled
-          ? "text-lg tracking-[0.3em] text-orange-600"
-          : "text-2xl md:text-3xl tracking-tighter text-white"
-      }
-    `}
-              >
-                Vikalp Singh
-              </span>
-
-              {/* The Innovation: A "Ghost" scan line that passes on hover */}
-              <span className="absolute top-0 left-[-100%] w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] group-hover:left-[100%] transition-all duration-1000 ease-in-out" />
+            <div className={`relative transition-all duration-500 ease-in-out ${isScrolled ? "w-14 md:-24" : "w-16 md:w-35"}`}>
+              <Image 
+                src={logo} 
+                alt="Vikalp Singh" 
+                width={200} 
+                height={60} 
+                className="object-contain"
+                priority
+              />
             </div>
-
-            {/* Underline Decoration: Industrial Style */}
-            <div
-              className={`
-    flex gap-1 mt-1 transition-all duration-500
-    ${isScrolled ? "opacity-100 w-full" : "opacity-0 w-0"}
-  `}
-            >
-              <div className="h-[2px] w-full bg-orange-600/50" />
-              <div className="h-[2px] w-2 bg-orange-600" />
-            </div>
-
             {/* Background Glow on Hover */}
             <div className="absolute inset-0 bg-orange-600/0 group-hover:bg-orange-600/5 blur-xl transition-all duration-500" />
           </Link>
-          {/* DESKTOP NAV - Capsule Style */}
+
+          {/* DESKTOP NAV */}
           <nav className="hidden lg:flex items-center gap-2">
             {navItems.map((item) => (
               <Link
                 key={item.id}
                 href={`#${item.id}`}
-                className="relative px-4 py-2 text-[11px] font-bold uppercase tracking-[0.03em] text-white/50 hover:text-orange-500 transition-all group"
+                className="relative px-4 py-2 text-[11px] font-bold uppercase text-white/50 hover:text-orange-500 transition-all group"
               >
                 <span className="relative z-10">
                   {item.label[lang as "en" | "hi"]}
@@ -103,14 +82,14 @@ export default function Navbar() {
             ))}
           </nav>
 
-          {/* RIGHT SIDE: Language & Mobile Toggle */}
+          {/* RIGHT SIDE */}
           <div className="flex items-center gap-4">
             <button
               onClick={() => setLang(lang === "en" ? "hi" : "en")}
               className="flex items-center gap-2 px-4 py-2 bg-white/5 hover:bg-white/10 border border-white/10 rounded-full transition-all group"
             >
               <Globe className="w-4 h-4 text-orange-600 group-hover:rotate-180 transition-transform duration-700" />
-              <span className="text-[10px] font-black uppercase tracking-widest">
+              <span className="text-[10px] font-black uppercase ">
                 {lang === "en" ? "हिन्दी" : "English"}
               </span>
             </button>
@@ -125,7 +104,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* MOBILE MENU - Fullscreen Overlay */}
+      {/* MOBILE MENU */}
       <div
         className={`fixed inset-0 bg-black z-[-1] transition-all duration-700 ${
           mobileMenuOpen
@@ -139,7 +118,7 @@ export default function Navbar() {
               key={item.id}
               href={`#${item.id}`}
               onClick={() => setMobileMenuOpen(false)}
-              className="text-4xl font-black uppercase italic tracking-tighter text-white/20 hover:text-orange-600 hover:scale-110 transition-all"
+              className="text-4xl font-black uppercase italic text-white/20 hover:text-orange-600 hover:scale-110 transition-all"
             >
               {item.label[lang as "en" | "hi"]}
             </Link>

@@ -63,7 +63,7 @@ const Media = () => {
               onClick={loadMore}
               className="group relative flex items-center gap-3 px-8 py-4 bg-transparent border border-orange-600/30 rounded-full text-white overflow-hidden transition-all hover:border-orange-600"
             >
-              <span className="relative z-10 font-mono text-sm tracking-widest uppercase">Load More</span>
+              <span className="relative z-10 font-mono text-sm  uppercase">Load More</span>
               <Plus className="relative z-10 w-4 h-4 group-hover:rotate-180 transition-transform duration-500" />
               <div className="absolute inset-0 bg-orange-600 translate-y-[101%] group-hover:translate-y-0 transition-transform duration-500" />
             </button>

@@ -63,7 +63,7 @@ export default function Hero() {
       {/* Content Layer */}
       <div ref={contentRef} className="relative z-10 h-full flex flex-col justify-center items-center px-6 pointer-events-none">
         
-        <p className="hero-sub-items text-orange-600 font-mono text-xs md:text-sm tracking-[0.2em] uppercase mb-8">
+        <p className="hero-sub-items text-orange-600 font-mono text-xs md:text-sm  uppercase mb-8">
           {lang === "en" ? "Strategic Leadership" : "रणनीतिक नेतृत्व"}
         </p>
 
@@ -72,7 +72,7 @@ export default function Hero() {
         </h1>
 
         <div className="hero-sub-items mt-10 text-center">
-          <p className="text-white/40 text-sm md:text-lg tracking-[0.2em] uppercase font-light">
+          <p className="text-white/40 text-sm md:text-lg  uppercase font-light">
             {data.tagline}
           </p>
         </div>
