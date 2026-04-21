@@ -9,7 +9,7 @@ export const sportsData = {
       "Member – Satna District Cricket Association",
     ],
   },
-
+ 
  hi: {
   title: "खेल यात्रा",
   items: [
