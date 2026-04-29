@@ -9,111 +9,114 @@ import vs from "@/public/vs.png";
 export default function About() {
   const { lang } = useLanguage();
   const data = aboutData[lang as keyof typeof aboutData];
-  const sectionRef = useRef(null);
-  const portraitRef = useRef(null);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Image Entrance Animation (Scale & Fade)
-      gsap.from(portraitRef.current, {
-        scale: 0.85,
+      gsap.from(".about-reveal", {
+        y: 50,
         opacity: 0,
-        filter: "blur(10px)",
-        duration: 1.5,
+        stagger: 0.15,
+        duration: 1,
         ease: "power3.out",
         scrollTrigger: {
-          trigger: "#about",
-          start: "top 70%",
+          trigger: containerRef.current,
+          start: "top 80%",
         }
       });
-
-      // 2. Parallax effect on image while scrolling
-      gsap.to(portraitRef.current, {
-        y: -50, // Subtle floating effect
-        scrollTrigger: {
-          trigger: "#about",
-          scrub: 1, // Smooth follow
-        }
-      });
-
-      // 3. Text Reveal Animation
-      gsap.from(".about-reveal", {
-        opacity: 0,
-        y: 60,
-        stagger: 0.2,
-        duration: 1.2,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: "#about",
-          start: "top 60%",
-        }
-      });
-    }, sectionRef);
+    }, containerRef);
     return () => ctx.revert();
   }, [lang]);
 
+  if (!data) return null;
+
   return (
-    <section ref={sectionRef} id="about" className="relative min-h-screen bg-black flex items-center py-28 overflow-hidden">
-      
-      {/* Background Large Outlined Text (Elite UI Aesthetic) */}
-      <div className="absolute top-1/3 left-10 pointer-events-none opacity-[0.05] select-none">
-         <h2 className="text-[20vw] font-black text-transparent stroke-white stroke-1 uppercase leading-none" 
-             style={{ WebkitTextStroke: '1px rgba(255,255,255,0.3)' }}>
-           {lang === "en" ? "Visionary" : "दृष्टिकोण"}
-         </h2>
+    <section 
+      ref={containerRef} 
+      id="about" 
+      className="relative bg-[#FDFCF0] py-16 md:py-24 lg:py-32 overflow-hidden"
+    >
+      {/* Background Watermark - Adjusted for better responsiveness */}
+      <div className="absolute top-0 right-0 pointer-events-none opacity-[0.03] select-none translate-x-1/4">
+        <h2 className="text-[30vw] font-black text-[#001F3F] leading-none uppercase italic">
+          {data.name.split(' ')[0]}
+        </h2>
       </div>
 
-      <div className="container mx-auto px-6 md:px-24 grid md:grid-cols-2 gap-20 items-center relative z-10">
-        
+      <div className="container mx-auto px-6 lg:px-16 relative z-10">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+          
+          {/* LEFT: TEXT CONTENT */}
+          <div className="w-full lg:w-[60%] space-y-8 md:space-y-12">
+            <div className="about-reveal">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-[2px] w-12 bg-[#001F3F]" />
+                <span className="text-[#001F3F] font-black text-[10px] md:text-xs uppercase tracking-[0.3em]">
+                  {data.title}
+                </span>
+              </div>
+              <h2 className="text-5xl md:text-7xl lg:text-8xl font-black text-[#001F3F] uppercase leading-[0.9] tracking-tighter">
+                Legacy <br /> 
+                <span className="text-transparent stroke-navy italic opacity-50">In Motion.</span>
+              </h2>
+            </div>
 
-        {/* 📸 Elite Image Area (Black & White to Color) */}
-        <div className="relative flex justify-center order-1 md:order-1">
-           <div ref={portraitRef} className="relative group aspect-[3/4] w-full max-w-md mx-auto rounded-3xl overflow-hidden border border-white/10 bg-white/5 backdrop-blur-sm shadow-2xl">
-              
-              {/* Profile PNG */}
+            <p className="about-reveal text-[#001F3F]/90 text-lg md:text-2xl font-medium leading-relaxed max-w-2xl border-l-4 border-[#001F3F] pl-6">
+              {data.intro}
+            </p>
+
+            {/* Highlights - Responsive Grid */}
+            <div className="about-reveal grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {data.highlights.map((item, idx) => (
+                <div key={idx} className="p-4 bg-white/50 backdrop-blur-sm border border-[#001F3F]/10 rounded-xl shadow-sm">
+                  <p className="text-[#001F3F] font-bold text-[10px] md:text-[11px] uppercase tracking-wide">
+                    {item}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* RIGHT: VISUALS (Image + Vision) */}
+          <div className="w-full lg:w-[40%] flex flex-col gap-6 md:gap-8">
+            {/* Portrait Container */}
+            <div className="about-reveal relative aspect-[4/5] w-full rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
               <Image 
                 src={vs} 
-                alt="Vikalp Singh" 
-                className="object-contain z-10 relative drop-shadow-[0_0_50px_rgba(255,110,0,0.15)] grayscale group-hover:grayscale-0 transition-all duration-1000 transform group-hover:scale-105"
-                fill
-                priority
+                alt={data.name} 
+                fill 
+                className="object-cover grayscale hover:grayscale-0 transition-all duration-700" 
+                sizes="(max-width: 1024px) 100vw, 40vw"
+                priority 
               />
-              
-              {/* Gradient Aura Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-orange-600/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 z-0" />
-           </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-[#001F3F]/30 to-transparent" />
+            </div>
+
+            {/* Vision Card - Snug fit under image */}
+            <div className="about-reveal bg-[#001F3F] p-8 md:p-10 rounded-3xl text-[#FDFCF0] shadow-xl relative overflow-hidden">
+              <span className="text-[#C5A059] font-black text-[10px] uppercase tracking-[0.4em] block mb-4">
+                {lang === 'en' ? 'Nation Building' : 'राष्ट्र निर्माण'}
+              </span>
+              <h3 className="text-lg md:text-xl font-bold leading-snug uppercase tracking-tight relative z-10">
+                {data.vision}
+              </h3>
+              <span className="absolute -bottom-4 -right-2 text-8xl font-black text-white/5 select-none font-serif rotate-12">”</span>
+            </div>
+          </div>
+
         </div>
-
-
-        {/* ✍️ Clean & Impactful Typography */}
-        <div className="space-y-12 order-2 md:order-2">
-          <div className="about-reveal">
-            <p className="text-orange-500 font-mono  text-xs uppercase block mb-3">// {data.title}</p>
-            <h2 className="text-6xl md:text-8xl font-black text-white uppercase leading-none italic ">
-              Legacy in <br/> <span className="text-orange-600">Motion.</span>
-            </h2>
-          </div>
-
-          <div className="about-reveal space-y-6 text-gray-400 text-sm md:text-lg font-light leading-relaxed max-w-xl border-l-2 border-orange-600 pl-6">
-             {data.description.split("\n").map((para, i) => (
-                para.trim() && <p key={i} className="hover:text-white transition-colors duration-500 text-justify">{para}</p>
-              ))}
-          </div>
-
-          <div className="about-reveal pt-4 flex gap-6">
-            <button className="px-10 py-4 bg-orange-600 text-white font-bold text-xs uppercase  rounded-full hover:bg-white hover:text-black transition-all duration-500 shadow-lg hover:shadow-orange-500/30">
-              {lang === 'en' ? 'Learn More' : 'और जानें'}
-            </button>
-          </div>
-        </div>
-
-
-
-
-
-        
-
       </div>
+
+      <style jsx global>{`
+        .stroke-navy {
+          -webkit-text-stroke: 1px #001F3F;
+        }
+        @media (min-width: 768px) {
+          .stroke-navy {
+            -webkit-text-stroke: 2px #001F3F;
+          }
+        }
+      `}</style>
     </section>
   );
 }

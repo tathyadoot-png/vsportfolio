@@ -21,7 +21,7 @@ export default function CustomCursor() {
   return (
     <div
       ref={cursorRef}
-      className="fixed top-0 left-0 w-3 h-3 bg-orange-500 rounded-full pointer-events-none z-[9999] mix-blend-difference  opacity-70"
+      className="fixed top-0 left-0 w-3 h-3 bg-[#001f3e] rounded-full pointer-events-none z-[9999] mix-blend-difference  opacity-70"
       style={{ transform: "translate(-50%, -50%)" }}
     />
   );
