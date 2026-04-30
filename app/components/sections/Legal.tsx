@@ -1,110 +1,119 @@
 "use client";
-import { useRef, useEffect } from "react";
-import Image from "next/image";
+import { useRef, useEffect, useState } from "react";
+import { 
+  Shield, Gavel, Briefcase, FileText, ArrowUpRight, 
+  Plus, Zap, Trophy, Landmark, ExternalLink 
+} from "lucide-react";
 import { legalData } from "@/app/data/legal";
 import { useLanguage } from "@/app/context/LanguageContext";
-import gsap from "@/app/lib/gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionHeader from "../ui/SectionHeader";
-import withoutbg from "@/public/vs2-removebg-preview.png";
-
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
-}
+import gsap from "@/app/lib/gsap";
 
 export default function Legal() {
   const { lang } = useLanguage();
-  const data = legalData[lang as keyof typeof legalData];
-  const sectionRef = useRef<HTMLElement>(null);
+  // Safe data fetching
+  const currentLang = lang === 'hi' ? 'hi' : 'en';
+  const data = legalData[currentLang];
+  
+  const containerRef = useRef(null);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
-    if (!sectionRef.current || !data) return;
-
+    setIsReady(true);
     const ctx = gsap.context(() => {
-      const isMobile = window.innerWidth < 768;
+      // Direct visibility set
+      gsap.set(".reveal-up", { opacity: 1 });
 
-      if (!isMobile) {
-        const cards = gsap.utils.toArray(".legal-card-stack");
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top top",
-            end: "+=250%",
-            pin: true,
-            scrub: 1,
-          }
-        });
-
-        tl.to(cards, {
-          // ✅ Y offsets ko thoda adjust kiya taaki bottom cards screen ke andar rahein
-          x: (i) => [-360, 360, -400, 400, -360, 360][i % 6],
-          y: (i) => [-180, -180, 0, 0, 180, 180][i % 6],
-          opacity: 1,
-          scale: 1,
-          stagger: 0.1,
-          ease: "power2.out"
-        });
-      } else {
-        const mobileCards = gsap.utils.toArray(".legal-card-mobile");
-        mobileCards.forEach((card: any) => {
-          gsap.fromTo(card, 
-            { opacity: 0, y: 60, scale: 0.9, rotateX: -15 },
-            {
-              opacity: 1, y: 0, scale: 1, rotateX: 0,
-              duration: 1, ease: "power3.out",
-              scrollTrigger: {
-                trigger: card,
-                start: "top 90%",
-                end: "top 60%",
-                scrub: 1,
-                toggleActions: "play reverse play reverse"
-              }
-            }
-          );
-        });
-      }
-    }, sectionRef);
-
+      gsap.from(".reveal-up", {
+        y: 60,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: containerRef.current,
+          start: "top 85%",
+        }
+      });
+    }, containerRef);
     return () => ctx.revert();
-  }, [data]);
+  }, [lang]);
 
-  if (!data) return null;
+  // Early return fix to prevent "undefined" errors
+  if (!data || !data.sections || !data.policy) {
+    return <div className="py-20 text-center">Loading Legal Data...</div>;
+  }
 
   return (
-    // ✅ min-h-screen aur py-20 kiya hai taaki overflow na ho aur cards dikhein
-    <section ref={sectionRef} id="legal" className="relative min-h-screen bg-[#050505] flex flex-col overflow-hidden py-10 md:py-20">
-      
-      <div className="w-full px-6 md:px-20 z-50 relative">
-        <SectionHeader title={data.title} subtitle="Strategic Advocacy" />
+    <section ref={containerRef} id="legal" className="py-24 bg-[#FDFCF0] relative overflow-hidden">
+      {/* Decorative Background Text */}
+      <div className="absolute right-[-2%] top-[15%] opacity-[0.03] select-none pointer-events-none hidden lg:block">
+        <h2 className="text-[18vw] font-black text-[#001F3F] leading-none uppercase">COUNSEL</h2>
       </div>
 
-      {/* MOBILE LIST */}
-      <div className="md:hidden flex flex-col gap-8 px-6 relative z-20 mt-10">
-        {data.items.map((item, index) => (
-          <div key={index} className="legal-card-mobile p-6 rounded-2xl bg-gradient-to-br from-white/[0.05] to-transparent border border-white/10 backdrop-blur-xl shadow-2xl">
-            <div className="flex items-center justify-between mb-3">
-              <span className="text-orange-600 font-black text-2xl italic">0{index + 1}</span>
+      <div className="container mx-auto px-6 relative z-10">
+        <SectionHeader title={data.title} subtitle="Jurisprudence & Policy" />
+
+        <div className={`mt-20 space-y-12 transition-opacity duration-700 ${isReady ? 'opacity-100' : 'opacity-0'}`}>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            {/* 01. LITIGATION SECTION */}
+            <div className="reveal-up lg:col-span-7 bg-white rounded-[3rem] p-10 lg:p-14 border border-[#001F3F]/5 shadow-sm hover:shadow-md transition-all group">
+              <div className="flex flex-col h-full">
+                <div className="w-16 h-16 bg-[#001F3F] rounded-2xl flex items-center justify-center mb-10 shadow-lg group-hover:-rotate-3 transition-transform">
+                  <Gavel className="text-white" size={28} />
+                </div>
+                <h3 className="text-5xl lg:text-7xl font-black text-[#001F3F] uppercase leading-[0.9] tracking-tighter italic mb-10">
+                  {data.sections[0]?.title || "Litigation"}
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-auto">
+                  {data.sections[0]?.items.map((item, i) => (
+                    <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-[#FDFCF0] border border-[#001F3F]/5">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#001F3F]" />
+                      <span className="text-[10px] font-black uppercase text-[#001F3F]/80">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
-            <h3 className="text-white text-lg font-bold uppercase">{item}</h3>
-          </div>
-        ))}
-      </div>
 
-      {/* ✅ DESKTOP CONTAINER: Height ko auto kiya aur flex-1 rakha taaki content size ke hisab se phail sake */}
-      <div className="hidden md:flex relative flex-1 w-full min-h-[600px] items-center justify-center" style={{ perspective: "1000px" }}>
-        <h2 className="absolute text-[18vw] font-black text-white/[0.01] uppercase italic select-none">JUSTICE</h2>
-        
-        {data.items.map((item, index) => (
-          <div key={index} className="legal-card-stack absolute w-[380px] p-8 rounded-[2rem] bg-[#0a0a0a]/95 border border-white/10 backdrop-blur-xl opacity-0 scale-50 z-20 group shadow-2xl">
-             <div className="flex items-center gap-4 mb-4">
-                <span className="text-white/10 text-4xl font-black">0{index+1}</span>
-             </div>
-             <h3 className="text-xl font-bold text-white group-hover:text-orange-500 transition-colors uppercase">{item}</h3>
-          </div>
-        ))}
+            {/* 02. ADVISORY SECTION */}
+            <div className="reveal-up lg:col-span-5 bg-[#001F3F] text-[#FDFCF0] rounded-[3rem] p-10 lg:p-14 shadow-2xl relative overflow-hidden group">
+              <Briefcase size={180} className="absolute -right-12 -bottom-12 opacity-5" />
+              <h3 className="text-3xl font-black uppercase italic mb-12 tracking-tight border-l-4 border-white/20 pl-6">
+                {data.sections[1]?.title || "Advisory"}
+              </h3>
+              <div className="space-y-8 relative z-10">
+                {data.sections[1]?.items.map((item, i) => (
+                  <p key={i} className="text-lg font-medium italic opacity-75 hover:opacity-100 transition-opacity leading-snug">
+                    {item}
+                  </p>
+                ))}
+              </div>
+              <div className="mt-12 pt-8 border-t border-white/10 flex items-center justify-between opacity-40">
+                <span className="text-[9px] font-black tracking-[0.4em] uppercase">Firm Partner Status</span>
+                <Landmark size={18} />
+              </div>
+            </div>
 
-        <div className="hero-legal-img relative z-30 w-[400px]">
-          <Image src={withoutbg} alt="Advocate" className="w-full h-auto object-contain drop-shadow-[0_0_50px_rgba(234,88,12,0.1)]" />
+            {/* 03. POLICY GRID */}
+            <div className="lg:col-span-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+              {data.policy.items.map((p, i) => (
+                <div key={i} className="reveal-up group bg-white border border-[#001F3F]/5 rounded-[2.5rem] p-10 hover:bg-[#001F3F] transition-all duration-500">
+                  <div className="flex justify-between items-start mb-10">
+                    <div className="p-4 bg-[#FDFCF0] rounded-2xl group-hover:bg-white/10 group-hover:text-white transition-colors">
+                      {i === 0 ? <Zap size={22} /> : i === 1 ? <Trophy size={22} /> : <FileText size={22} />}
+                    </div>
+                    <ArrowUpRight className="text-[#001F3F]/10 group-hover:text-white transition-all" size={22} />
+                  </div>
+                  <h4 className="text-2xl font-black text-[#001F3F] group-hover:text-white uppercase tracking-tighter mb-4">{p.title}</h4>
+                  <p className="text-xs text-[#001F3F]/50 group-hover:text-white/60 font-semibold leading-relaxed">{p.desc}</p>
+                </div>
+              ))}
+            </div>
+
+          </div>
         </div>
       </div>
     </section>

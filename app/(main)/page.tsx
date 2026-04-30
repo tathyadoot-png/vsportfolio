@@ -8,6 +8,7 @@ import Contact from "../components/sections/Contact";
 import Media from "../components/sections/Media";
 import CredibilityStrip from "../components/sections/credibility";
 import PillarsPage from "../(pages)/pillars/page";
+import PublicImpactPage from "../(pages)/publicImpact/page";
 
 export default function Home() {
   return (
@@ -15,8 +16,9 @@ export default function Home() {
       <Hero />
       <CredibilityStrip/>
       <About />
-      <PillarsPage/>
+      {/* <PillarsPage/> */}
       <Education/>
+      <PublicImpactPage/>
       <Sports/>
       <Legal/>
       <Initiatives/>
