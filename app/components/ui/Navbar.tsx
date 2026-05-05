@@ -40,12 +40,12 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ${
-        isScrolled ? "py-2 md:py-3" : "py-4 md:py-6"
+        isScrolled ? "py-2 md:py-3" : "py-2 md:py-0"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 md:px-6">
         <div
-          className={`relative flex items-center justify-between px-4 md:px-8 py-2 md:py-3 transition-all duration-500 rounded-full border shadow-lg ${
+          className={`relative flex items-center justify-between px-4 md:px-8 py-2 md:py-2 transition-all duration-500 rounded-full border shadow-lg ${
             isScrolled || mobileMenuOpen
               ? "bg-[#001F3F] border-white/10" 
               : "bg-white/40 backdrop-blur-md border-[#001F3F]/10"
