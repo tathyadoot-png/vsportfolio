@@ -29,21 +29,18 @@ export default function Sports() {
       const totalWidth = el.scrollWidth;
       const windowWidth = window.innerWidth;
 
-      // 1. Horizontal Scroll Trigger
       gsap.to(el, {
         x: () => -(totalWidth - windowWidth + 100),
         ease: "none",
         scrollTrigger: {
           trigger: sectionRef.current,
           start: "top top",
-          end: () => `+=${totalWidth * 0.8}`, // ✅ Scroll distance chota kiya taaki slide fast ho
+          end: () => `+=${totalWidth * 0.8}`,
           pin: true,
-          scrub: 0.5, // ✅ Scrub 1 se 0.5 kiya taaki snappy feel aaye
+          scrub: 0.5,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
-            // ✅ Velocity skew ko limit kiya (Clamp) taaki cards jyada na jhukein
-            // Max skew 15 degree rakha hai taaki "ada" na dikhe
-             const skew = self.getVelocity() / 300;
+            const skew = self.getVelocity() / 300;
             gsap.to(".sports-card-inner", {
               skewX: skew,
               duration: 0.5,
@@ -53,7 +50,6 @@ export default function Sports() {
         }
       });
 
-      // SVG Path Animation
       gsap.fromTo(".path-line", 
         { strokeDashoffset: 1000 },
         { 
@@ -62,7 +58,7 @@ export default function Sports() {
             trigger: sectionRef.current,
             start: "top center",
             end: "bottom center",
-            scrub: 1 // Path ke liye bhi fast scrub
+            scrub: 1 
           }
         }
       );
@@ -77,13 +73,14 @@ export default function Sports() {
     <section 
       id="sports"
       ref={sectionRef} 
-      className="relative min-h-screen bg-black overflow-hidden flex flex-col z-10"
+      className="relative min-h-screen bg-[#fcfcf0] overflow-hidden flex flex-col z-10"
     >
+      {/* SVG Line - Changed to Navy */}
       <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none z-0" viewBox="0 0 1440 800">
         <path 
           className="path-line"
           d="M-100,400 C200,100 600,700 900,400 C1200,100 1600,400 1600,400" 
-          stroke="#EA580C" 
+          stroke="#001F3F" 
           strokeWidth="4" 
           fill="none" 
           strokeDasharray="1000"
@@ -108,28 +105,32 @@ export default function Sports() {
               <div 
                 key={index}
                 className="sports-card-inner relative w-[320px] md:w-[480px] h-[320px] md:h-[380px] flex-shrink-0 origin-bottom transition-transform will-change-transform"
-                style={{ transform: "skewX(0deg)" }} // ✅ Initial state seedha rakha hai
+                style={{ transform: "skewX(0deg)" }}
               >
-                <div className="absolute inset-0 bg-white/[0.03] border-l-4 border-orange-600 backdrop-blur-md p-8 md:p-12 flex flex-col justify-between group overflow-hidden shadow-2xl">
+                {/* Card Background: White, Border: Navy */}
+                <div className="absolute inset-0 bg-white border-l-4 border-[#001F3F] p-8 md:p-12 flex flex-col justify-between group overflow-hidden shadow-2xl">
                   
-                  <span className="absolute -top-6 -right-6 text-[10rem] font-black text-white/[0.04] italic select-none">
+                  {/* Number Overlay: Light Navy */}
+                  <span className="absolute -top-6 -right-6 text-[10rem] font-black text-[#001F3F]/[0.04] italic select-none">
                     0{index + 1}
                   </span>
 
                   <div className="relative z-10">
-                    <div className="w-16 h-16 bg-orange-600 flex items-center justify-center mb-8 shadow-xl shadow-orange-600/30">
-                      {/* ✅ Icon reverse skew hataya taaki vo cards ke saath natural lage */}
+                    {/* Icon Box: Navy */}
+                    <div className="w-16 h-16 bg-[#001F3F] flex items-center justify-center mb-8 shadow-xl shadow-[#001F3F]/20">
                       <Icon className="text-white w-9 h-9" />
                     </div>
                     
-                    <h3 className="text-2xl md:text-4xl font-black text-white uppercase italic leading-tight">
+                    {/* Text: Navy */}
+                    <h3 className="text-2xl md:text-4xl font-black text-[#001F3F] uppercase italic leading-tight">
                       {item}
                     </h3>
                   </div>
 
                   <div className="flex items-center gap-4 relative z-10">
-                     <div className="h-[2px] w-full bg-white/10 overflow-hidden">
-                        <div className="h-full bg-orange-600 w-0 group-hover:w-full transition-all duration-700" />
+                     <div className="h-[2px] w-full bg-[#001F3F]/10 overflow-hidden">
+                        {/* Progress Line: Navy */}
+                        <div className="h-full bg-[#001F3F] w-0 group-hover:w-full transition-all duration-700" />
                      </div>
                   </div>
                 </div>
@@ -140,8 +141,9 @@ export default function Sports() {
         </div>
       </div>
 
-      <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.02] pointer-events-none select-none z-0">
-        <span className="text-[25vw] font-black text-white uppercase italic">
+      {/* Background Text: Light Navy */}
+      <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.03] pointer-events-none select-none z-0">
+        <span className="text-[25vw] font-black text-[#001F3F] uppercase italic">
           SPEED
         </span>
       </div>

@@ -50,11 +50,9 @@ export default function About() {
       id="about" 
       className="relative bg-[#FDFCF0] py-24 lg:py-40 overflow-hidden"
     >
-      {/* 1. BLANK SPACE FIX: Noise & Grid Texture */}
       <div className="absolute inset-0 opacity-[0.4] pointer-events-none mix-blend-multiply" 
            style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/natural-paper.png")` }} />
       
-      {/* 2. Mega Watermark positioned to fill empty areas */}
       <div className="absolute -bottom-10 left-10 pointer-events-none opacity-[0.04] select-none">
         <h2 className="text-[25vw] font-black text-[#001F3F] leading-none uppercase tracking-tighter">
           {lang === 'en' ? 'LEADER' : 'नेतृत्व'}
@@ -64,8 +62,8 @@ export default function About() {
       <div className="container mx-auto px-6 lg:px-20 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
           
-          {/* LEFT: Portrait (4 cols) - Pushed to fill space */}
-          <div className="lg:col-span-5 order-2 lg:order-1">
+          {/* LEFT: Portrait - order-1 mobile par top pe dikhayega */}
+          <div className="lg:col-span-5 order-1 lg:order-1">
             <div className="relative group">
               <div ref={imageRef} className="about-reveal relative aspect-[3/4] w-full rounded-[2.5rem] overflow-hidden shadow-[0_50px_100px_-20px_rgba(0,31,63,0.3)] border-[12px] border-white z-10">
                 <Image 
@@ -76,11 +74,9 @@ export default function About() {
                   sizes="(max-width: 1024px) 100vw, 40vw"
                   priority 
                 />
-                {/* Navy Overlay on image */}
                 <div className="absolute inset-0 bg-[#001F3F]/10 group-hover:bg-transparent transition-colors duration-500" />
               </div>
               
-              {/* Decorative Floating Element */}
               <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#001F3F] rounded-full hidden lg:flex items-center justify-center p-8 z-20 animate-spin-slow">
                  <p className="text-[#FDFCF0] text-[10px] font-bold text-center uppercase tracking-widest leading-tight">
                    Advocate • Thinker • Leader
@@ -89,8 +85,8 @@ export default function About() {
             </div>
           </div>
 
-          {/* RIGHT: Text Content (7 cols) */}
-          <div className="lg:col-span-7 order-1 lg:order-2 space-y-10">
+          {/* RIGHT: Text Content - order-2 mobile par niche dikhayega */}
+          <div className="lg:col-span-7 order-2 lg:order-2 space-y-10">
             <div className="about-reveal">
               <div className="flex items-center gap-4 mb-6">
                 <span className="h-[2px] w-16 bg-[#001F3F]" />
@@ -109,7 +105,6 @@ export default function About() {
               </p>
             </div>
 
-            {/* BLANK SPACE FIX: Wide Highlights Grid */}
             <div className="about-reveal grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
               {data.highlights.map((item, idx) => (
                 <div key={idx} className="flex items-start gap-4 p-6 bg-white border border-[#001F3F]/5 rounded-2xl hover:border-[#001F3F]/20 transition-all shadow-sm group">
@@ -121,9 +116,8 @@ export default function About() {
               ))}
             </div>
 
-            {/* Vision Quote Section */}
             <div className="about-reveal mt-12 pl-8 border-l-4 border-[#001F3F]/10">
-               <p className="text-[#001F3F] text-2xl md:text-3xl font-serif italic italic max-w-2xl">
+               <p className="text-[#001F3F] text-2xl md:text-3xl font-serif italic max-w-2xl">
                  "{data.vision}"
                </p>
                <div className="mt-4 flex items-center gap-2">

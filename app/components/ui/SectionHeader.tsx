@@ -76,7 +76,7 @@ export default function SectionHeader({ title, subtitle }: Props) {
         <div className="flex flex-col">
           <div className="overflow-hidden">
             {/* TEXT: Deep Navy Color */}
-            <h2 className="reveal-text text-5xl pr-6 md:text-9xl font-black text-[#001F3F] uppercase italic leading-[0.85] tracking-tighter">
+            <h2 className="reveal-text text-4xl pr-6 md:text-7xl font-black text-[#001F3F] uppercase italic leading-[0.85] tracking-tighter">
               {title}
             </h2>
           </div>

@@ -73,6 +73,7 @@ export default function Education() {
   return (
     <section 
       ref={containerRef} 
+      id="education"
       className="relative min-h-screen bg-[#FDFCF0] py-24 md:py-40 overflow-hidden"
     >
       {/* BACKGROUND DECORATION: Hydration-safe random dots */}
@@ -103,7 +104,7 @@ export default function Education() {
               Chronicle
             </span>
           </div>
-          <h2 className="text-6xl md:text-8xl font-black text-[#001F3F] leading-[0.8] uppercase tracking-tighter mb-10">
+          <h2 className="text-5xl md:text-8xl font-black text-[#001F3F] leading-[0.8] uppercase tracking-tighter mb-10">
             {data.title.split(' ')[0]} <br />
             <span className="text-transparent stroke-navy italic opacity-40">
               {data.title.split(' ').slice(1).join(' ')}
