@@ -110,7 +110,7 @@ export default function About() {
       )}
     </h2>
     
-    <p className="text-[#001F3F]/80 text-xl md:text-3xl font-light leading-relaxed max-w-3xl">
+    <p className="text-[#001F3F]/80 text-xl md:text-3xl font-light leading-relaxed text-justify max-w-3xl">
       {data.intro}
     </p>
   </div>
@@ -127,7 +127,7 @@ export default function About() {
             </div>
 
             <div className="about-reveal mt-12 pl-8 border-l-4 border-[#001F3F]/10">
-               <p className="text-[#001F3F] text-2xl md:text-3xl font-serif italic max-w-2xl">
+               <p className="text-[#001F3F] text-2xl md:text-3xl font-serif italic max-w-2xl text-justify">
                  "{data.vision}"
                </p>
                <div className="mt-4 flex items-center gap-2">
