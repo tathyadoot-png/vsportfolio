@@ -39,7 +39,7 @@ export default function CredibilityStrip() {
         className="flex items-center flex-nowrap"
         animate={{ x: ["0%", "-33.33%"] }}
         transition={{
-          duration: 30,
+          duration: 7,
           repeat: Infinity,
           ease: "linear",
         }}
@@ -47,7 +47,7 @@ export default function CredibilityStrip() {
         {displayItems.map((text, idx) => (
           <div
             key={`strip-item-${idx}`}
-            className="flex items-center gap-6 px-12 md:px-20 flex-shrink-0"
+            className="flex items-center gap-6 px-8 md:px-12 flex-shrink-0"
           >
             {/* Visual Icon Container */}
             <div className="flex items-center justify-center w-10 h-10 md:w-14 md:h-14 rounded-full bg-[#001F3F] text-[#FDFCF0] shadow-xl">

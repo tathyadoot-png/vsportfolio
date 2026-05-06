@@ -83,7 +83,7 @@ export default function Initiatives() {
               src={vsImage} 
               alt="Vikalp Singh" 
               fill 
-              className="object-contain grayscale contrast-less: brightness-95 pt-28"
+              className="object-contain grayscale contrast-less: brightness-95 pt-32"
               priority
             />
             {/* Glow effect changed to light navy */}

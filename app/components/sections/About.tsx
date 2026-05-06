@@ -87,23 +87,33 @@ export default function About() {
 
           {/* RIGHT: Text Content - order-2 mobile par niche dikhayega */}
           <div className="lg:col-span-7 order-2 lg:order-2 space-y-10">
-            <div className="about-reveal">
-              <div className="flex items-center gap-4 mb-6">
-                <span className="h-[2px] w-16 bg-[#001F3F]" />
-                <span className="text-[#001F3F] font-black text-xs uppercase tracking-[0.4em]">
-                  {data.title}
-                </span>
-              </div>
-              
-              <h2 className="text-6xl md:text-8xl lg:text-9xl font-black text-[#001F3F] uppercase leading-[0.8] tracking-tighter mb-8">
-                Legacy <br /> 
-                <span className="text-transparent stroke-navy italic">In Motion.</span>
-              </h2>
-              
-              <p className="text-[#001F3F]/80 text-xl md:text-3xl font-light leading-relaxed max-w-3xl">
-                {data.intro}
-              </p>
-            </div>
+          <div className="about-reveal">
+    <div className="flex items-center gap-4 mb-6">
+      <span className="h-[2px] w-16 bg-[#001F3F]" />
+      <span className="text-[#001F3F] font-black text-xs uppercase tracking-[0.4em]">
+        {data.title}
+      </span>
+    </div>
+    
+    {/* BILINGUAL HEADER FIXED HERE */}
+    <h2 className="text-6xl md:text-8xl lg:text-9xl font-black text-[#001F3F] uppercase leading-[0.8] tracking-tighter mb-8">
+      {lang === 'en' ? (
+        <>
+          Legacy <br /> 
+          <span className="text-transparent stroke-navy italic">In Motion.</span>
+        </>
+      ) : (
+        <>
+          विरासत <br /> 
+          <span className="text-transparent stroke-navy italic py-7">गतिमान।</span>
+        </>
+      )}
+    </h2>
+    
+    <p className="text-[#001F3F]/80 text-xl md:text-3xl font-light leading-relaxed max-w-3xl">
+      {data.intro}
+    </p>
+  </div>
 
             <div className="about-reveal grid grid-cols-1 md:grid-cols-2 gap-6 mt-12">
               {data.highlights.map((item, idx) => (

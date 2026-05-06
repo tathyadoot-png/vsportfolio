@@ -25,6 +25,10 @@ export default function ScrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  // SVG parameters for responsiveness
+  const radius = 28;
+  const circumference = 2 * Math.PI * radius; // Approx 176
+
   return (
     <AnimatePresence>
       {show && (
@@ -33,57 +37,61 @@ export default function ScrollToTop() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.5, y: 20 }}
           whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9, y: -5 }}
+          whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
-          className="fixed bottom-6 right-6 md:bottom-8 md:right-8 z-[9999] cursor-pointer"
+          // Mobile responsive positioning and size
+          className="fixed bottom-4 right-4 md:bottom-8 md:right-8 z-[9999] cursor-pointer touch-none"
         >
-          <div className="relative w-14 h-14 md:w-16 md:h-16 flex items-center justify-center group">
+          <div className="relative w-12 h-12 md:w-16 md:h-16 flex items-center justify-center group">
             
-            {/* 1. Subtle Outer Glow - Navy Blue */}
-            <div className="absolute inset-0 bg-[#001F3F]/5 rounded-full blur-xl group-hover:bg-[#001F3F]/10 transition-all duration-500" />
+            {/* 1. Outer Glow */}
+            <div className="absolute inset-0 bg-[#001F3F]/5 rounded-full blur-lg md:blur-xl group-hover:bg-[#001F3F]/10 transition-all duration-500" />
 
-            {/* 2. SVG Progress Ring - Navy Theme */}
-            <svg className="w-full h-full rotate-[-90deg] drop-shadow-xl">
+            {/* 2. Responsive SVG Progress Ring */}
+            <svg 
+              viewBox="0 0 64 64" // ViewBox ensures the SVG scales perfectly
+              className="w-full h-full rotate-[-90deg] drop-shadow-lg"
+            >
               <circle
                 cx="32"
                 cy="32"
-                r="28"
+                r={radius}
                 stroke="#001F3F"
-                strokeWidth="1.5"
+                strokeWidth="2"
                 fill="transparent"
                 className="opacity-10"
               />
               <motion.circle
                 cx="32"
                 cy="32"
-                r="28"
+                r={radius}
                 stroke="#001F3F" 
                 strokeWidth="3"
                 fill="transparent"
-                strokeDasharray="176"
-                animate={{ strokeDashoffset: 176 - (progress / 100) * 176 }}
+                strokeDasharray={circumference}
+                animate={{ strokeDashoffset: circumference - (progress / 100) * circumference }}
                 transition={{ type: "spring", stiffness: 50, damping: 20 }}
                 strokeLinecap="round"
               />
             </svg>
 
-            {/* 3. Central Icon Container */}
+            {/* 3. Central Icon & Text */}
             <div className="absolute inset-0 flex flex-col items-center justify-center">
-              {/* Progress Text - Navy */}
-              <span className="text-[8px] font-black text-[#001F3F]/40 mb-[-2px] opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-tighter">
+              {/* Progress Text - Hidden on mobile unless hovered, show small on desktop */}
+              <span className="hidden md:block text-[8px] font-black text-[#001F3F]/40 mb-[-2px] opacity-0 group-hover:opacity-100 transition-opacity uppercase tracking-tighter">
                 {Math.round(progress)}%
               </span>
               
               <motion.div
-                animate={{ y: [0, -3, 0] }}
+                animate={{ y: [0, -2, 0] }}
                 transition={{ repeat: Infinity, duration: 2 }}
               >
-                <ArrowUp className="w-5 h-5 text-[#001F3F] transition-transform duration-300 group-hover:scale-110" />
+                <ArrowUp className="w-4 h-4 md:w-5 md:h-5 text-[#001F3F] transition-transform duration-300 group-hover:scale-110" />
               </motion.div>
             </div>
 
-            {/* 4. Glassmorphism Background - Beige/White Blend */}
-            <div className="absolute inset-2 bg-white/80 backdrop-blur-md rounded-full -z-10 border border-[#001F3F]/10 group-hover:bg-[#FDFCF0] transition-all shadow-sm" />
+            {/* 4. Glassmorphism Background */}
+            <div className="absolute inset-1.5 md:inset-2 bg-white/90 backdrop-blur-md rounded-full -z-10 border border-[#001F3F]/10 group-hover:bg-[#FDFCF0] transition-all shadow-sm" />
           </div>
         </motion.div>
       )}

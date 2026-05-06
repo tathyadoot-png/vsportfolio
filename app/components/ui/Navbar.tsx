@@ -4,7 +4,7 @@ import { useLanguage } from "@/app/context/LanguageContext";
 import Link from "next/link";
 import Image from "next/image";
 import { Menu, X, Globe } from "lucide-react";
-import logo from "@/public/VS_Logo_orange.png";
+import logo from "@/public/VS_Logo.png";
 
 export default function Navbar() {
   const { lang, setLang } = useLanguage();

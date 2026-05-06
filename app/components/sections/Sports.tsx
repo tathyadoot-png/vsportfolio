@@ -87,7 +87,7 @@ export default function Sports() {
         />
       </svg>
 
-      <div className="pt-6 relative z-50">
+      <div className="pt-6 px-3 relative z-50">
         <SectionHeader 
           title={data.title} 
           subtitle="Athletic Prowess & Leadership" 

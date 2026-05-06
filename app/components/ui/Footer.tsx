@@ -106,7 +106,7 @@ const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-10 border-t border-[#001F3F]/10 flex flex-col md:flex-row justify-between items-center gap-6">
+        <div className="pt-5 border-t border-[#001F3F]/10 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex flex-col md:flex-row items-center gap-4">
             <p className="text-[#001F3F]/40 text-[10px] font-bold uppercase tracking-[0.2em]">
               © {currentYear} ALL RIGHTS RESERVED |
@@ -114,7 +114,7 @@ const Footer = () => {
             <Link 
               href="https://thesociyo.com" 
               target="_blank" 
-              className="opacity-40 hover:opacity-100 transition-opacity flex items-center gap-2"
+              className="opacity-95 hover:opacity-100 transition-opacity flex items-center gap-2"
             >
               <span className="text-[9px] font-black uppercase text-[#001F3F]">Designed by</span>
               <Image 
@@ -122,19 +122,12 @@ const Footer = () => {
                 alt="The Sociyo" 
                 width={80} 
                 height={24} 
-                className="object-contain grayscale contrast-125"
+                className="object-contain rounded bg-[#001f3f]"
               />
             </Link>
           </div>
           
-          <div className="flex items-center gap-8">
-            <Link href="#" className="text-[#001F3F]/40 hover:text-[#001F3F] text-[10px] font-black uppercase transition-colors tracking-widest">
-              Privacy Policy
-            </Link>
-            <Link href="#" className="text-[#001F3F]/40 hover:text-[#001F3F] text-[10px] font-black uppercase transition-colors tracking-widest">
-              Terms of Service
-            </Link>
-          </div>
+         
         </div>
       </div>
     </footer>
