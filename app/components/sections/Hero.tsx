@@ -5,7 +5,7 @@ import { ArrowRight, MousePointer2 } from "lucide-react";
 import gsap from "@/app/lib/gsap";
 import { useLanguage } from "@/app/context/LanguageContext";
 import { heroData } from "@/app/data/hero";
-import vs14 from "@/public/vs14.png";
+import vs14 from "@/public/vs.png";
 
 export default function Hero() {
   const containerRef = useRef(null);
@@ -76,10 +76,10 @@ export default function Hero() {
             </div>
 
             <div className="space-y-0">
-              <h1 className="reveal-text text-6xl md:text-8xl pb-4 lg:text-[10rem] font-black text-[#001F3F] uppercase leading-[0.8] tracking-tighter">
+              <h1 className="reveal-text text-6xl md:text-8xl md:pb-8 pb-3 pt-1.5 lg:text-[10rem] font-black text-[#001F3F] uppercase leading-[0.8] tracking-tighter">
                 {data.name.split(' ')[0]}
               </h1>
-              <h1 className="reveal-text text-6xl md:text-8xl lg:text-[10rem] font-black text-[#001F3F] uppercase leading-[0.8] tracking-tighter outline-text italic">
+              <h1 className="reveal-text text-6xl  md:text-8xl lg:text-[10rem] font-black text-[#001F3F] uppercase leading-[0.8] tracking-tighter outline-text italic">
                 {data.name.split(' ')[1]}
               </h1>
             </div>
@@ -88,14 +88,33 @@ export default function Hero() {
               {data.subheading}
             </p>
 
-            <div className="reveal-text flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-              <button className="group px-8 py-5 bg-[#001F3F] text-[#FDFCF0] rounded-2xl font-black uppercase text-sm tracking-widest flex items-center justify-center gap-3 hover:scale-[1.05] transition-transform shadow-xl">
-                {data.ctaPrimary} <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-              <button className="px-8 py-5 bg-white border border-[#001F3F]/10 text-[#001F3F] rounded-2xl font-black uppercase text-sm tracking-widest hover:bg-[#001F3F]/5 transition-colors shadow-sm">
-                {data.ctaSecondary}
-              </button>
-            </div>
+           <div className="reveal-text flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+  <button
+    onClick={() => {
+      document.getElementById("legal")?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }}
+    className="group px-8 py-5 bg-[#001F3F] text-[#FDFCF0] rounded-2xl font-black uppercase text-sm tracking-widest flex items-center justify-center gap-3 hover:scale-[1.05] transition-transform shadow-xl"
+  >
+    {data.ctaPrimary}
+    <ArrowRight
+      size={18}
+      className="group-hover:translate-x-1 transition-transform"
+    />
+  </button>
+
+  <button
+    onClick={() => {
+      document.getElementById("contact")?.scrollIntoView({
+        behavior: "smooth",
+      });
+    }}
+    className="px-8 py-5 bg-white border border-[#001F3F]/10 text-[#001F3F] rounded-2xl font-black uppercase text-sm tracking-widest hover:bg-[#001F3F]/5 transition-colors shadow-sm"
+  >
+    {data.ctaSecondary}
+  </button>
+</div>
           </div>
 
           {/* RIGHT CONTENT: THE IMAGE HERO */}

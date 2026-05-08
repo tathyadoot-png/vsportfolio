@@ -4,7 +4,7 @@ import Image from "next/image";
 import { aboutData } from "@/app/data/about";
 import { useLanguage } from "@/app/context/LanguageContext";
 import gsap from "@/app/lib/gsap";
-import vs from "@/public/vs.png";
+import vs from "@/public/vs13.png";
 
 export default function About() {
   const { lang } = useLanguage();
@@ -54,7 +54,7 @@ export default function About() {
            style={{ backgroundImage: `url("https://www.transparenttextures.com/patterns/natural-paper.png")` }} />
       
       <div className="absolute -bottom-10 left-10 pointer-events-none opacity-[0.04] select-none">
-        <h2 className="text-[25vw] font-black text-[#001F3F] leading-none uppercase tracking-tighter">
+        <h2 className="text-[17vw] font-black text-[#001F3F] leading-none uppercase tracking-tighter">
           {lang === 'en' ? 'LEADER' : 'नेतृत्व'}
         </h2>
       </div>
@@ -105,7 +105,7 @@ export default function About() {
       ) : (
         <>
           विरासत <br /> 
-          <span className="text-transparent stroke-navy italic py-7">गतिमान।</span>
+          <div className="text-transparent stroke-navy italic pt-8">गतिमान।</div>
         </>
       )}
     </h2>

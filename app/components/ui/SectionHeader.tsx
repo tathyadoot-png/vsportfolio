@@ -55,7 +55,7 @@ export default function SectionHeader({ title, subtitle }: Props) {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full lg:w-[90%] mx-auto py-16 flex flex-col items-start gap-5 overflow-visible relative px-0 md:px-0">
+    <div ref={containerRef} className="w-full lg:w-[90%] mx-auto py-7 flex flex-col items-start gap-5 overflow-visible relative px-0 md:px-0">
       
       {/* Background Decorative Watermark (Ivory Family) */}
       <div className="absolute top-0 -left-6 opacity-[0.04] pointer-events-none select-none overflow-hidden">
@@ -76,7 +76,7 @@ export default function SectionHeader({ title, subtitle }: Props) {
         <div className="flex flex-col">
           <div className="overflow-hidden">
             {/* TEXT: Deep Navy Color */}
-            <h2 className="reveal-text text-3xl pr-6 md:text-7xl font-black text-[#001F3F] py-1 uppercase italic leading-[0.85] tracking-tighter">
+            <h2 className="reveal-text text-3xl pr-6 md:text-7xl font-black text-[#001F3F] py-5 uppercase italic leading-[0.85] tracking-tighter">
               {title}
             </h2>
           </div>

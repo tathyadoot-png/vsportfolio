@@ -39,7 +39,7 @@ export default function PublicImpact() {
   const icons = [<Users />, <GraduationCap />, <Trophy />, <Heart />];
 
   return (
-    <section ref={containerRef} id="impact" className="py-24 bg-[#FDFCF0] relative overflow-hidden">
+    <section ref={containerRef} id="impact" className="py-2 bg-[#FDFCF0] relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none select-none">
         <div className="absolute top-0 left-0 w-full h-full" style={{ backgroundImage: 'radial-gradient(#001F3F 1px, transparent 1px)', backgroundSize: '30px 30px' }} />

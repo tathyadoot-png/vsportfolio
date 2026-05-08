@@ -74,7 +74,7 @@ export default function Education() {
     <section 
       ref={containerRef} 
       id="education"
-      className="relative min-h-screen bg-[#FDFCF0] py-24 md:py-40 overflow-hidden"
+      className="relative min-h-screen bg-[#FDFCF0] py-5 md:py-40 overflow-hidden"
     >
       {/* BACKGROUND DECORATION: Hydration-safe random dots */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden opacity-20">
