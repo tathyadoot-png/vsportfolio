@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useEffect } from "react";
+import { useRef, useLayoutEffect } from "react"; // useLayoutEffect is better for GSAP
 import { sportsData } from "@/app/data/sports";
 import { useLanguage } from "@/app/context/LanguageContext";
 import gsap from "@/app/lib/gsap";
@@ -17,55 +17,54 @@ export default function Sports() {
   const { lang } = useLanguage();
   const data = sportsData[lang as keyof typeof sportsData];
   const sectionRef = useRef<HTMLElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (!sectionRef.current || !scrollRef.current) return;
+  useLayoutEffect(() => {
+    if (!sectionRef.current || !containerRef.current || !data) return;
+
+    const section = sectionRef.current;
+    const container = containerRef.current;
 
     const ctx = gsap.context(() => {
-      const el = scrollRef.current;
-      if (!el) return;
-
-      const totalWidth = el.scrollWidth;
-      const windowWidth = window.innerWidth;
-
-      gsap.to(el, {
-        x: () => -(totalWidth - windowWidth + 100),
+      // 1. Force calculating width properly
+      const scrollWidth = container.scrollWidth;
+      
+      gsap.to(container, {
+        x: () => -(container.scrollWidth - window.innerWidth),
         ease: "none",
         scrollTrigger: {
-          trigger: sectionRef.current,
+          trigger: section,
           start: "top top",
-          end: () => `+=${totalWidth * 0.8}`,
+          end: () => `+=${container.scrollWidth}`,
           pin: true,
-          scrub: 0.5,
+          scrub: 1,
           invalidateOnRefresh: true,
-          onUpdate: (self) => {
-            const skew = self.getVelocity() / 300;
-            gsap.to(".sports-card-inner", {
-              skewX: skew,
-              duration: 0.5,
-              overwrite: true
-            });
+          anticipatePin: 1,
+          // 2. Refresh logic on redirection
+          onRefresh: (self) => {
+             // Ensures alignment stays perfect after jump
+             if (self.progress > 0) self.scroll(self.start + self.progress * (self.end - self.start));
           }
         }
       });
-
-      gsap.fromTo(".path-line", 
-        { strokeDashoffset: 1000 },
-        { 
-          strokeDashoffset: 0,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top center",
-            end: "bottom center",
-            scrub: 1 
-          }
-        }
-      );
     }, sectionRef);
 
-    return () => ctx.revert();
-  }, [lang]);
+    // 3. THE FIX: Double refresh after page jump
+    const refreshUI = () => {
+        ScrollTrigger.refresh();
+    };
+
+    window.addEventListener('load', refreshUI);
+    const timer1 = setTimeout(refreshUI, 100); 
+    const timer2 = setTimeout(refreshUI, 1000); // Back-up refresh
+
+    return () => {
+      ctx.revert();
+      window.removeEventListener('load', refreshUI);
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+  }, [lang, data]);
 
   if (!data) return null;
 
@@ -73,79 +72,56 @@ export default function Sports() {
     <section 
       id="sports"
       ref={sectionRef} 
-      className="relative min-h-screen bg-[#fcfcf0] overflow-hidden flex flex-col z-10"
+      className="relative min-h-screen bg-[#fcfcf0] overflow-hidden flex flex-col"
     >
-      {/* SVG Line - Changed to Navy */}
-      <svg className="absolute inset-0 w-full h-full opacity-10 pointer-events-none z-0" viewBox="0 0 1440 800">
-        <path 
-          className="path-line"
-          d="M-100,400 C200,100 600,700 900,400 C1200,100 1600,400 1600,400" 
-          stroke="#001F3F" 
-          strokeWidth="4" 
-          fill="none" 
-          strokeDasharray="1000"
-        />
-      </svg>
-
-      <div className="pt-6 px-3 relative z-50">
-        <SectionHeader 
-          title={data.title} 
-          subtitle="Athletic Prowess & Leadership" 
-        />
+      <div className="pt-24 px-8 relative z-30">
+        <SectionHeader title={data.title} subtitle="Athletic Prowess & Leadership" />
       </div>
 
-      <div className="flex-1 flex items-center relative z-20 overflow-visible h-full">
+      <div className="flex-grow flex items-center relative z-20">
         <div 
-          ref={scrollRef} 
-          className="flex flex-nowrap gap-12 px-10 md:px-24 items-center w-fit h-fit min-h-[400px]"
+          ref={containerRef} 
+          className="flex flex-nowrap gap-12 px-10 md:px-32 items-center"
+          style={{ width: "max-content" }} // Force container to respect children width
         >
           {data.items.map((item, index) => {
             const Icon = icons[index % icons.length];
             return (
               <div 
                 key={index}
-                className="sports-card-inner relative w-[320px] md:w-[480px] h-[320px] md:h-[380px] flex-shrink-0 origin-bottom transition-transform will-change-transform"
-                style={{ transform: "skewX(0deg)" }}
+                className="sports-card-inner relative w-[350px] md:w-[500px] flex-shrink-0"
               >
-                {/* Card Background: White, Border: Navy */}
-                <div className="absolute inset-0 bg-white border-l-4 border-[#001F3F] p-8 md:p-12 flex flex-col justify-between group overflow-hidden shadow-2xl">
+                {/* Image #6 inspired Premium Bento Card */}
+                <div className="bg-white border-l-[8px] border-[#001F3F] rounded-r-[3rem] rounded-l-[1rem] p-12 md:h-[400px] h-[300px] flex flex-col justify-between shadow-2xl relative overflow-hidden group">
                   
-                  {/* Number Overlay: Light Navy */}
-                  <span className="absolute -top-6 -right-6 text-[10rem] font-black text-[#001F3F]/[0.04] italic select-none">
+                  {/* Number Background */}
+                  <span className="absolute -top-10 right-5 text-[9rem] font-black text-[#001F3F]/[0.14] italic">
                     0{index + 1}
                   </span>
 
                   <div className="relative z-10">
-                    {/* Icon Box: Navy */}
-                    <div className="w-16 h-16 bg-[#001F3F] flex items-center justify-center mb-8 shadow-xl shadow-[#001F3F]/20">
-                      <Icon className="text-white w-9 h-9" />
+                    <div className="w-20 h-20 bg-[#001F3F] rounded-2xl flex items-center justify-center mb-10 shadow-lg shadow-[#001F3F]/20 group-hover:rotate-[10deg] transition-transform">
+                      <Icon className="text-white w-10 h-10" />
                     </div>
-                    
-                    {/* Text: Navy */}
-                    <h3 className="text-2xl md:text-4xl font-black text-[#001F3F] uppercase italic leading-tight">
+                    <h3 className="text-xl md:text-3xl  font-black text-[#001F3F] uppercase italic leading-[1] tracking-tighter">
                       {item}
                     </h3>
                   </div>
 
-                  <div className="flex items-center gap-4 relative z-10">
-                     <div className="h-[2px] w-full bg-[#001F3F]/10 overflow-hidden">
-                        {/* Progress Line: Navy */}
-                        <div className="h-full bg-[#001F3F] w-0 group-hover:w-full transition-all duration-700" />
-                     </div>
+                  <div className="mt-auto relative z-10">
+                    <div className="h-1 w-full bg-[#001F3F]/5 overflow-hidden rounded-full">
+                      <div className="h-full bg-[#001F3F] w-0 group-hover:w-full transition-all duration-1000 ease-out" />
+                    </div>
+                    <p className="text-[11px] font-black text-[#001F3F]/40 uppercase mt-4 tracking-[0.3em]">
+                      Achievement Detail
+                    </p>
                   </div>
                 </div>
               </div>
             );
           })}
-          <div className="w-[50vw] flex-shrink-0" />
+          <div className="w-[20vw] flex-shrink-0" />
         </div>
-      </div>
-
-      {/* Background Text: Light Navy */}
-      <div className="absolute bottom-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-[0.03] pointer-events-none select-none z-0">
-        <span className="text-[25vw] font-black text-[#001F3F] uppercase italic">
-          SPEED
-        </span>
       </div>
     </section>
   );
