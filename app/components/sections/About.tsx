@@ -48,7 +48,7 @@ export default function About() {
       ref={containerRef} 
       className="relative bg-[#FDFCF0] py-12 lg:py-20 overflow-hidden"
     >
-      <div className="container mx-auto px-6 lg:px-24 relative z-10">
+      <div className="container mx-auto px-6 lg:px-7 relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           
           {/* LEFT: Image Section with Background Styling */}

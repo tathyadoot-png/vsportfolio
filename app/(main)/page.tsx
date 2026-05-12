@@ -8,6 +8,9 @@ import Media from "../components/sections/Media";
 import CredibilityStrip from "../components/sections/credibility";
 import PillarsPage from "../(pages)/pillars/page";
 import PublicImpactPage from "../(pages)/publicImpact/page";
+import FeaturedPage from "../(pages)/featured/page";
+import leadershipPage from "../(pages)/leadership/page";
+import LeadershipSection from "../components/sections/Leaderships";
 
 export default function Home() {
   return (
@@ -18,6 +21,8 @@ export default function Home() {
       {/* <PillarsPage/> */}
       <Education/>
       <PublicImpactPage/>
+      {/* <FeaturedPage/> */}
+      <LeadershipSection/>
       <Sports/>
       <Legal/>
       <Media/>
