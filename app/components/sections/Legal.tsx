@@ -49,15 +49,14 @@ export default function Legal() {
 
   return (
     <section ref={containerRef} id="legal" className="py-20 lg:py-32 bg-[#FDFCF0] relative overflow-hidden">
+         <SectionHeader title={data.title} subtitle="Jurisprudence & Strategic Counsel" />
       {/* Background Architectural Element - Adjusted for mobile scale */}
       <div className="absolute left-[-10%] top-[5%] opacity-[0.02] select-none pointer-events-none">
         <Scale className="text-[#001F3F] w-[300px] h-[300px] lg:w-[600px] lg:h-[600px]" strokeWidth={1} />
       </div>
 
       <div className="container mx-auto px-4 lg:px-6 relative z-10">
-        <div className="reveal-up mb-10 lg:mb-16">
-          <SectionHeader title={data.title} subtitle="Jurisprudence & Strategic Counsel" />
-        </div>
+      
 
         <div className={`space-y-6 lg:space-y-8 transition-all duration-1000 ${isReady ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}>
           

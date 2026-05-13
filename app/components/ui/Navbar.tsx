@@ -26,16 +26,17 @@ export default function Navbar() {
     }
   }, [mobileMenuOpen]);
 
-  const navItems = [
-    { id: "hero", label: { en: "Home", hi: "होम" } },
-    { id: "about", label: { en: "About", hi: "परिचय" } },
-    { id: "education", label: { en: "Education", hi: "शिक्षा" } },
-    { id: "legal", label: { en: "Legal", hi: "कानूनी" } },
-    { id: "sports", label: { en: "Sports", hi: "खेल" } },
-    { id: "initiatives", label: { en: "Initiatives", hi: "पहल" } },
-    { id: "media", label: { en: "Media", hi: "मीडिया" } },
-    { id: "contact", label: { en: "Contact", hi: "संपर्क" } },
-  ];
+const navItems = [
+  { id: "hero", label: { en: "Home", hi: "मुखपृष्ठ" } },
+  { id: "about", label: { en: "About", hi: "परिचय" } },
+  { id: "education", label: { en: "Education", hi: "शिक्षा" } },
+  { id: "publicimpact", label: { en: "Public Impact", hi: "जन प्रभाव" } },
+  { id: "leadership", label: { en: "Leadership", hi: "नेतृत्व" } },
+  { id: "legal", label: { en: "Legal", hi: "विधिक" } },
+  { id: "sports", label: { en: "Sports", hi: "खेल" } },
+  { id: "media", label: { en: "Media", hi: "मीडिया" } },
+  { id: "contact", label: { en: "Contact", hi: "संपर्क" } },
+];
 
   return (
     <header
@@ -137,10 +138,7 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* Mobile Socials or Footer info */}
-        <div className="absolute bottom-12 text-center">
-            <p className="text-white/20 text-[10px] uppercase tracking-[0.5em] font-bold">Advocate & Public Affairs</p>
-        </div>
+      
       </div>
     </header>
   );

@@ -45,6 +45,7 @@ export default function About() {
 
   return (
     <section 
+    id="about"
       ref={containerRef} 
       className="relative bg-[#FDFCF0] py-12 lg:py-20 overflow-hidden"
     >
@@ -109,7 +110,7 @@ export default function About() {
             <div className="reveal-item p-8 bg-white/40 border border-white/60 rounded-[2rem] shadow-sm backdrop-blur-sm relative overflow-hidden">
                {/* Accent decoration for the quote */}
                <div className="absolute top-0 left-0 w-2 h-full bg-[#001F3F]/10" />
-              <p className="text-xl italic font-serif text-[#001F3F]/90 leading-relaxed">
+              <p className="text-xl italic font-serif text-[#001F3F]/90 leading-relaxed text-justify">
                 "{data.vision}"
               </p>
             </div>

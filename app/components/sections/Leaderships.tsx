@@ -18,7 +18,7 @@ export default function LeadershipSection() {
   ];
 
   return (
-    <section className="w-full bg-[#FDFCF0] py-20 px-[5vw] border-t border-[#001F3F]/5 overflow-hidden">
+    <section id="leadership" className="w-full bg-[#FDFCF0] py-20 px-[5vw] border-t border-[#001F3F]/5 overflow-hidden">
       <div className="w-full max-w-[1800px] mx-auto">
         
         {/* Your Premium SectionHeader Component */}
