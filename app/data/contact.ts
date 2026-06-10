@@ -3,7 +3,7 @@ export const contactData = {
     title: "Contact",
 
     phone: "+91 88263 52918",
-    email: "office@vikalpsingh.com",
+    email: "namaskar@vikalpsingh.com",
     website: "www.vikalpsingh.com",
 
     options: [
