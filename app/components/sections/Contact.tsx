@@ -18,6 +18,7 @@ import {
   FaTwitter,
   FaInstagram,
   FaFacebookF,
+  FaYoutube
 } from "react-icons/fa6";
 import gsap from "@/app/lib/gsap";
 
@@ -84,12 +85,36 @@ const Contact = () => {
     return () => ctx.revert();
   }, [lang]);
 
-  const socialIcons = [
-    FaLinkedinIn,
-    FaTwitter,
-    FaInstagram,
-    FaFacebookF,
-  ];
+  // const socialIcons = [
+  //   FaLinkedinIn,
+  //   FaTwitter,
+  //   FaInstagram,
+  //   FaFacebookF,
+  //   FaYoutube,
+  // ];
+
+  const socials = [
+  {
+    icon: <FaFacebookF />,
+    link: "https://www.facebook.com/BJPVikalpSingh",
+  },
+  {
+    icon: <FaInstagram />,
+    link: "https://www.instagram.com/vikalpsingh4u/",
+  },
+  {
+    icon: <FaTwitter   />,
+    link: "https://x.com/vikalpsingh4u",
+  },
+  {
+    icon: <FaYoutube />,
+    link: "https://www.youtube.com/@vikalpsingh3989",
+  },
+  {
+    icon: <FaLinkedinIn />,
+    link: "https://in.linkedin.com/in/vikalp-singh-3a1559201",
+  },
+];
 
   const optionIcons = [Shield, Users, Handshake];
 
@@ -159,15 +184,17 @@ const Contact = () => {
               </p>
 
               <div className="flex flex-wrap gap-3">
-                {socialIcons.map((Icon, i) => (
-                  <a
-                    key={i}
-                    href="#"
-                    className="magnetic-item w-11 h-11 md:w-14 md:h-14 rounded-full border border-[#001F3F]/10 flex items-center justify-center text-[#001F3F] hover:bg-[#001F3F] hover:text-white transition-all duration-500"
-                  >
-                    <Icon size={16} />
-                  </a>
-                ))}
+               {socials.map((item, index) => (
+  <a
+    key={index}
+    href={item.link}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="social-icon"
+  >
+    {item.icon}
+  </a>
+))}
               </div>
             </div>
           </div>
