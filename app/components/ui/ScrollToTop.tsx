@@ -61,18 +61,22 @@ export default function ScrollToTop() {
                 fill="transparent"
                 className="opacity-10"
               />
-              <motion.circle
-                cx="32"
-                cy="32"
-                r={radius}
-                stroke="#001F3F" 
-                strokeWidth="3"
-                fill="transparent"
-                strokeDasharray={circumference}
-                animate={{ strokeDashoffset: circumference - (progress / 100) * circumference }}
-                transition={{ type: "spring", stiffness: 50, damping: 20 }}
-                strokeLinecap="round"
-              />
+            <motion.circle
+  cx="32"
+  cy="32"
+  r={radius}
+  stroke="#001F3F"
+  strokeWidth="3"
+  fill="transparent"
+  strokeDasharray={circumference}
+  initial={{ strokeDashoffset: circumference }}
+  animate={{
+    strokeDashoffset:
+      circumference - (progress / 100) * circumference,
+  }}
+  transition={{ type: "spring", stiffness: 50, damping: 20 }}
+  strokeLinecap="round"
+/>
             </svg>
 
             {/* 3. Central Icon & Text */}

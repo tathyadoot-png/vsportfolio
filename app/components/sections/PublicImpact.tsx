@@ -34,7 +34,7 @@ export default function PublicImpact() {
   const icons = [<Zap size={18} />, <Users size={18} />, <Trophy size={18} />, <Heart size={18} />, <Globe size={18} />];
 
   return (
-    <section  id="publicimpact" className="w-full bg-[#FDFCF0] py-24 px-[6vw]">
+    <section  id="publicimpact"  ref={containerRef} className="w-full bg-[#FDFCF0] py-24 px-[6vw]">
             <SectionHeader title={data.title} subtitle="Social Metrics" />
       <div className="max-w-full mx-auto flex flex-col gap-10">
         

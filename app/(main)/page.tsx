@@ -6,6 +6,7 @@ import Sports from "../components/sections/Sports";
 import Contact from "../components/sections/Contact";
 import Media from "../components/sections/Media";
 import CredibilityStrip from "../components/sections/credibility";
+import Articles from "../components/sections/Articles";
 import PillarsPage from "../(pages)/pillars/page";
 import PublicImpactPage from "../(pages)/publicImpact/page";
 import FeaturedPage from "../(pages)/featured/page";
@@ -24,6 +25,7 @@ export default function Home() {
       {/* <FeaturedPage/> */}
       <LeadershipSection/>
       <Sports/>
+      <Articles />
       <Legal/>
       <Media/>
     <Contact/>

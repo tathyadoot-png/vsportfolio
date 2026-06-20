@@ -34,6 +34,7 @@ const navItems = [
   { id: "leadership", label: { en: "Leadership", hi: "नेतृत्व" } },
   { id: "legal", label: { en: "Legal", hi: "विधिक" } },
   { id: "sports", label: { en: "Sports", hi: "खेल" } },
+  { id: "articles", label: { en: "Articles", hi: "लेख" } },
   { id: "media", label: { en: "Media", hi: "मीडिया" } },
   { id: "contact", label: { en: "Contact", hi: "संपर्क" } },
 ];
