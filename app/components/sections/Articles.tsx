@@ -65,7 +65,7 @@ export default function Articles() {
                   </span>
                   
                   {/* Title size text-2xl/3xl se chota karke text-lg/xl kiya */}
-                  <h3 className="mt-3 text-lg md:text-xl font-bold text-[#001F3F] leading-snug tracking-tight line-clamp-2 min-h-[3.5rem]">
+                  <h3 className="mt-2 pt-1   text-lg md:text-xl font-bold text-[#001F3F]  line-clamp-2 ">
                     {item.title}
                   </h3>
                   
